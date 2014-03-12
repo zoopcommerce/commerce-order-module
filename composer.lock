@@ -1311,12 +1311,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:zoopcommerce/commerce-common-module.git",
-                "reference": "0cfc2a40fe70df8a47606e38af867138d554421b"
+                "reference": "e26889eccb32c0e21c12a9a8b4fb61cc06430ff1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zoopcommerce/commerce-common-module/zipball/0cfc2a40fe70df8a47606e38af867138d554421b",
-                "reference": "0cfc2a40fe70df8a47606e38af867138d554421b",
+                "url": "https://api.github.com/repos/zoopcommerce/commerce-common-module/zipball/e26889eccb32c0e21c12a9a8b4fb61cc06430ff1",
+                "reference": "e26889eccb32c0e21c12a9a8b4fb61cc06430ff1",
                 "shasum": ""
             },
             "require": {
@@ -1364,7 +1364,7 @@
                 "source": "https://github.com/zoopcommerce/commerce-common-module/tree/master",
                 "issues": "https://github.com/zoopcommerce/commerce-common-module/issues"
             },
-            "time": "2014-03-12 04:46:43"
+            "time": "2014-03-12 06:32:04"
         },
         {
             "name": "zoopcommerce/commerce-inventory-module",
@@ -1372,12 +1372,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:zoopcommerce/commerce-inventory-module.git",
-                "reference": "aead80c28859bf661a06935c943efa6b3bee4b9a"
+                "reference": "595bfbc4a9c215d6cf72f99944b0ea3875e77dfa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zoopcommerce/commerce-inventory-module/zipball/aead80c28859bf661a06935c943efa6b3bee4b9a",
-                "reference": "aead80c28859bf661a06935c943efa6b3bee4b9a",
+                "url": "https://api.github.com/repos/zoopcommerce/commerce-inventory-module/zipball/595bfbc4a9c215d6cf72f99944b0ea3875e77dfa",
+                "reference": "595bfbc4a9c215d6cf72f99944b0ea3875e77dfa",
                 "shasum": ""
             },
             "require": {
@@ -1387,6 +1387,7 @@
                 "doctrine/mongodb-odm": "dev-hotfix719 as 1.0.0-BETA9",
                 "php": ">=5.4",
                 "zoopcommerce/commerce-common-module": "dev-master",
+                "zoopcommerce/commerce-order-module": "dev-master",
                 "zoopcommerce/commerce-product-module": "dev-master",
                 "zoopcommerce/commerce-store-module": "dev-master",
                 "zoopcommerce/shard": "~4.0"
@@ -1428,7 +1429,7 @@
                 "source": "https://github.com/zoopcommerce/commerce-inventory-module/tree/master",
                 "issues": "https://github.com/zoopcommerce/commerce-inventory-module/issues"
             },
-            "time": "2014-03-12 06:07:36"
+            "time": "2014-03-12 06:38:24"
         },
         {
             "name": "zoopcommerce/commerce-product-module",
@@ -1436,12 +1437,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:zoopcommerce/commerce-product-module.git",
-                "reference": "8e9b156f4ac1b4c9ec3a703eb19469b58a1c893a"
+                "reference": "acbd90b1e1b5693244530e6bb1edc70c273e1982"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zoopcommerce/commerce-product-module/zipball/8e9b156f4ac1b4c9ec3a703eb19469b58a1c893a",
-                "reference": "8e9b156f4ac1b4c9ec3a703eb19469b58a1c893a",
+                "url": "https://api.github.com/repos/zoopcommerce/commerce-product-module/zipball/acbd90b1e1b5693244530e6bb1edc70c273e1982",
+                "reference": "acbd90b1e1b5693244530e6bb1edc70c273e1982",
                 "shasum": ""
             },
             "require": {
@@ -1491,7 +1492,7 @@
                 "source": "https://github.com/zoopcommerce/commerce-product-module/tree/master",
                 "issues": "https://github.com/zoopcommerce/commerce-product-module/issues"
             },
-            "time": "2014-03-12 05:53:36"
+            "time": "2014-03-12 06:46:02"
         },
         {
             "name": "zoopcommerce/commerce-store-module",
