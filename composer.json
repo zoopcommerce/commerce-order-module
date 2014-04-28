@@ -33,7 +33,7 @@
         },
         {
             "type": "vcs",
-            "url": "https://github.com/superdweebie/mongodb-odm"
+            "url": "https://github.com/crimsonronin/mongodb-odm"
         }
     ],
     "require": {
@@ -52,7 +52,7 @@
         "melihucar/ftpclient"                   : "dev-master#faab472b1f3118d4926b3cbfc7d21c9cba255c0f as dev-master",
         "sendgrid/sendgrid"                     : "2.0.*",
         "willdurand/geocoder"                   : "2.4.*",
-        "zendframework/zendframework"           : "dev-develop#f92a07bc3f5cbd49a518ee880b1451f357c71376",
+        "zendframework/zendframework"           : "2.3.1 as dev-develop",
         "zoopcommerce/commerce-common-module"   : "dev-master",
         "zoopcommerce/commerce-store-module"    : "dev-master",
         "zoopcommerce/shard-module"             : "~3.0"
