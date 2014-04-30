@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     'zoop' => [
         'shard' => [
             'manifest' => [
@@ -20,4 +20,4 @@ return array(
             'zoop.commerce.order.active' => 'Zoop\Order\Service\ActiveOrderFactory',
         ],
     ],
-);
+];
