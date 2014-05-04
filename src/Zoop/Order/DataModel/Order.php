@@ -6,6 +6,8 @@ use \DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Zoop\Common\DataModel\Address;
 use Zoop\Order\DataModel\Total;
+use Zoop\Order\DataModel\Commission;
+use Zoop\Order\DataModel\OrderInterface;
 use Zoop\Store\DataModel\Store;
 use Zoop\Shard\Stamp\DataModel\CreatedOnTrait;
 use Zoop\Shard\Stamp\DataModel\UpdatedOnTrait;
@@ -67,7 +69,7 @@ use Zoop\Shard\Annotation\Annotations as Shard;
  *     )
  * })
  */
-class Order
+class Order implements OrderInterface
 {
     use CreatedOnTrait;
     use UpdatedOnTrait;
@@ -167,6 +169,11 @@ class Order
      * @ODM\EmbedMany(targetDocument="Zoop\Order\DataModel\History")
      */
     protected $history;
+
+    /**
+     * @ODM\EmbedOne(targetDocument="Zoop\Order\DataModel\Commission")
+     */
+    protected $commission;
 
     /**
      *
@@ -351,6 +358,22 @@ class Order
     public function setHistory(History $history)
     {
         $this->history = $history;
+    }
+
+    /**
+     * @return Commission
+     */
+    public function getCommission()
+    {
+        return $this->commission;
+    }
+
+    /**
+     * @param Commission $commission
+     */
+    public function setCommission(Commission $commission)
+    {
+        $this->commission = $commission;
     }
 
     /**
