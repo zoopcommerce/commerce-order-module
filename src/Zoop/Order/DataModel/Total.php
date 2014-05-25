@@ -25,7 +25,13 @@ class Total
      *
      * @ODM\Float
      */
-    protected $productPrice;
+    protected $productWholesalePrice;
+
+    /**
+     *
+     * @ODM\Float
+     */
+    protected $productListPrice;
 
     /**
      *
@@ -43,7 +49,7 @@ class Total
      *
      * @ODM\Float
      */
-    protected $taxPrice;
+    protected $taxIncluded;
 
     /**
      *
@@ -76,21 +82,51 @@ class Total
     }
 
     /**
-     *
      * @return float
      */
-    public function getProductPrice()
+    public function getProductWholesalePrice()
     {
-        return $this->productPrice;
+        return $this->productWholesalePrice;
     }
 
     /**
-     *
-     * @param float $productPrice
+     * @param float $productWholesalePrice
      */
-    public function setProductPrice($productPrice)
+    public function setProductWholesalePrice($productWholesalePrice)
     {
-        $this->productPrice = (float) $productPrice;
+        $this->productWholesalePrice = (float) $productWholesalePrice;
+    }
+
+    /**
+     * @return float
+     */
+    public function getProductListPrice()
+    {
+        return $this->productListPrice;
+    }
+
+    /**
+     * @param float $productListPrice
+     */
+    public function setProductListPrice($productListPrice)
+    {
+        $this->productListPrice = $productListPrice;
+    }
+
+    /**
+     * @return float
+     */
+    public function getTaxIncluded()
+    {
+        return $this->taxIncluded;
+    }
+
+    /**
+     * @param float $taxIncluded
+     */
+    public function setTaxIncluded($taxIncluded)
+    {
+        $this->taxIncluded = (float) $taxIncluded;
     }
 
     /**
@@ -127,24 +163,6 @@ class Total
     public function setDiscountPrice($discountPrice)
     {
         $this->discountPrice = (float) $discountPrice;
-    }
-
-    /**
-     *
-     * @return float
-     */
-    public function getTaxPrice()
-    {
-        return $this->taxPrice;
-    }
-
-    /**
-     *
-     * @param float $taxPrice
-     */
-    public function setTaxPrice($taxPrice)
-    {
-        $this->taxPrice = (float) $taxPrice;
     }
 
     /**

@@ -39,11 +39,11 @@ class ActiveOrderFactory implements FactoryInterface
         $documentManager = $serviceLocator->get('shard.commerce.modelmanager');
 
         $order = $documentManager
-                ->createQueryBuilder()
-                ->find('Zoop\Order\DataModel\Order')
-                ->field('id')->equals($id)
-                ->getQuery()
-                ->getSingleResult();
+            ->createQueryBuilder()
+            ->find('Zoop\Order\DataModel\Order')
+            ->field('id')->equals($id)
+            ->getQuery()
+            ->getSingleResult();
 
         return $order;
     }

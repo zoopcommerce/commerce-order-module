@@ -10,15 +10,18 @@ use Zoop\Shard\Annotation\Annotations as Shard;
 
 /**
  * @ODM\EmbeddedDocument
+ * @Shard\AccessControl({
+ *     @Shard\Permission\Basic(roles="*", allow="*")
+ * })
  */
 abstract class AbstractItem
 {
     /**
      *
-     * @ODM\Int
+     * @ODM\String
      */
-    protected $legacyId;
-
+    protected $brand;
+    
     /**
      *
      * @ODM\String
@@ -62,20 +65,20 @@ abstract class AbstractItem
 
     /**
      *
-     * @return integer
+     * @return string
      */
-    public function getLegacyId()
+    public function getBrand()
     {
-        return $this->legacyId;
+        return $this->brand;
     }
 
     /**
      *
-     * @param integer $legacyId
+     * @param string $brand
      */
-    public function setLegacyId($legacyId)
+    public function setBrand($brand)
     {
-        $this->legacyId = $legacyId;
+        $this->brand = $brand;
     }
 
     /**

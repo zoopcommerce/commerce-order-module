@@ -3,19 +3,22 @@
 namespace Zoop\Order\DataModel\Item;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Zoop\Order\DataModel\Item\SingleItem;
+use Zoop\Order\DataModel\Item\AbstractItem;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
 
 /**
  * @ODM\EmbeddedDocument
+ * @Shard\AccessControl({
+ *     @Shard\Permission\Basic(roles="*", allow="*")
+ * })
  */
 class Bundle extends AbstractItem
 {
     /**
      *
-     * @ODM\EmbedMany(targetDocument="Zoop\Order\DataModel\Item\SingleItem")
+     * @ODM\EmbedMany(targetDocument="Zoop\Order\DataModel\Item\AbstractItem")
      */
     protected $items;
 
@@ -25,9 +28,9 @@ class Bundle extends AbstractItem
     }
 
     /**
-     * @param SingleItem $item
+     * @param AbstractItem $item
      */
-    public function addItem(SingleItem $item)
+    public function addItem(AbstractItem $item)
     {
         $this->items->add($item);
     }

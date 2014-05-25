@@ -6,7 +6,7 @@ return [
             'manifest' => [
                 'commerce' => [
                     'models' => [
-                        'Zoop\Order\DataModel' => __DIR__ . '/../src/Zoop/Order/DataModel'
+                        'Zoop\Order\DataModel' => __DIR__ . '/../src/Zoop/Order/DataModel',
                     ]
                 ]
             ]

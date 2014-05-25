@@ -9,54 +9,63 @@ use Zoop\Shard\Annotation\Annotations as Shard;
 /**
  * @ODM\EmbeddedDocument
  * @Shard\AccessControl({
- *     @Shard\Permission\Basic(roles="*", allow="read"),
- *     @Shard\Permission\Basic(roles="store-manager", allow="*")
+ *     @Shard\Permission\Basic(roles="*", allow="*")
  * })
  */
 class Price
 {
     /**
+     * Wholesale price per unit
+     * 
      * @ODM\Float
      */
     protected $wholesale;
 
     /**
+     * List price per unit
+     * 
      * @ODM\Float
      */
     protected $list;
 
     /**
-     *
+     * List x Quantity
+     * 
      * @ODM\Float
      */
     protected $subTotal;
 
     /**
-     *
+     * Discount per unit
+     * 
      * @ODM\Float
      */
     protected $discount;
 
     /**
-     *
+     * (List x Quantity) - (Discount x Quantity)
+     * 
      * @ODM\Float
      */
     protected $total;
 
     /**
-     *
+     * Tax included per unit
+     * 
      * @ODM\Float
      */
     protected $taxIncluded;
 
     /**
-     *
+     * Shipping cost per unit (not included in total)
+     * 
      * @ODM\Float
      */
     protected $shipping;
 
     /**
-     *
+     * Wholesale price per unit
+     * 
      * @return float
      */
     public function getWholesale()
@@ -74,7 +83,7 @@ class Price
     }
 
     /**
-     *
+     * List price per unit
      * @return float
      */
     public function getList()
@@ -92,7 +101,8 @@ class Price
     }
 
     /**
-     *
+     * List x Quantity
+     * 
      * @return float
      */
     public function getSubTotal()
@@ -110,7 +120,8 @@ class Price
     }
 
     /**
-     *
+     * Discount per unit
+     * 
      * @return float
      */
     public function getDiscount()
@@ -137,7 +148,8 @@ class Price
     }
 
     /**
-     *
+     * (List x Quantity) - (Discount x Quantity)
+     * 
      * @param float $total
      */
     public function setTotal($total)
@@ -146,7 +158,8 @@ class Price
     }
 
     /**
-     *
+     * Tax included per unit
+     * 
      * @return float
      */
     public function getTaxIncluded()
@@ -164,7 +177,8 @@ class Price
     }
 
     /**
-     *
+     * Shipping cost per unit (not included in total)
+     * 
      * @return float
      */
     public function getShipping()

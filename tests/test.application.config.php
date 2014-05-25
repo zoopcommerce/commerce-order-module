@@ -7,6 +7,9 @@ return [
         'DoctrineMongoODMModule',
         'Zoop\ShardModule',
         'Zoop\Common',
+        'Zoop\Payment',
+        'Zoop\Product',
+        'Zoop\Promotion',
         'Zoop\Order',
         'Zoop\Store'
     ],

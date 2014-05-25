@@ -12,6 +12,7 @@ use Zoop\Store\DataModel\Store;
 use Zoop\Shard\Stamp\DataModel\CreatedOnTrait;
 use Zoop\Shard\Stamp\DataModel\UpdatedOnTrait;
 use Zoop\Promotion\DataModel\PromotionInterface;
+use Zoop\Payment\DataModel\TransactionInterface;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
@@ -64,7 +65,7 @@ use Zoop\Shard\Annotation\Annotations as Shard;
  *             "shipped->partially-refunded",
  *             "shipped->fully-refuneded",
  *             "picked->packed",
- *             "packed->shipped",
+ *             "packed->shipped"
  *         }
  *     )
  * })
@@ -89,13 +90,12 @@ class Order implements OrderInterface
      * @ODM\ReferenceMany(
      *     discriminatorField="type",
      *     discriminatorMap={
-     *         "UnlimitedPromotion"   = "Zoop\Promotion\DataModel\UnlimitedPromotion",
-     *         "LimitedPromotion"     = "Zoop\Promotion\DataModel\LimitedPromotion"
-     *     },
+     *         "UnlimitedPromotion"   = "Zoop\Legacy\Promotion\DataModel\UnlimitedPromotion",
+     *         "LimitedPromotion"     = "Zoop\Legacy\Promotion\DataModel\LimitedPromotion"
+     *     }, 
      *     inversedBy="orders"
      * )
      * @Shard\Serializer\Eager
-     * @Shard\Serializer\Ignore
      * @Shard\Unserializer\Ignore
      */
     protected $promotions;
@@ -104,13 +104,12 @@ class Order implements OrderInterface
      * @ODM\ReferenceMany(
      *     discriminatorField="type",
      *     discriminatorMap={
-     *         "UnlimitedPromotion"   = "Zoop\Promotion\DataModel\UnlimitedPromotion",
-     *         "LimitedPromotion"     = "Zoop\Promotion\DataModel\LimitedPromotion"
-     *     },
+     *         "UnlimitedPromotion"   = "Zoop\Legacy\Promotion\DataModel\UnlimitedPromotion",
+     *         "LimitedPromotion"     = "Zoop\Legacy\Promotion\DataModel\LimitedPromotion"
+     *     }, 
      *     inversedBy="orders"
      * )
      * @Shard\Serializer\Eager
-     * @Shard\Serializer\Ignore
      * @Shard\Unserializer\Ignore
      */
     protected $promotionRegistry;
@@ -127,6 +126,12 @@ class Order implements OrderInterface
      * @ODM\EmbedOne(targetDocument="Zoop\Order\DataModel\Total")
      */
     protected $total;
+
+    /**
+     *
+     * @ODM\EmbedMany(targetDocument="Zoop\Order\DataModel\Item\AbstractItem")
+     */
+    protected $items;
 
     /**
      *
@@ -169,6 +174,16 @@ class Order implements OrderInterface
      * @ODM\EmbedMany(targetDocument="Zoop\Order\DataModel\History")
      */
     protected $history;
+//
+//    /**
+//     * @ODM\EmbedMany(
+//     *     discriminatorField="type",
+//     *     discriminatorMap={
+//     *         "PayPal\ChainedPayment"   = " Zoop\Payment\Gateway\PayPal\ChainedPayment\DataModel\Transaction"
+//     *     }
+//     * )
+//     */
+//    protected $transactions;
 
     /**
      * @ODM\EmbedOne(targetDocument="Zoop\Order\DataModel\Commission")
@@ -245,6 +260,7 @@ class Order implements OrderInterface
     {
         $this->items = new ArrayCollection();
         $this->promotions = new ArrayCollection();
+        $this->transactions = new ArrayCollection();
     }
 
     public function getId()
@@ -358,6 +374,30 @@ class Order implements OrderInterface
     public function setHistory(History $history)
     {
         $this->history = $history;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getTransactions()
+    {
+        return $this->transactions;
+    }
+
+    /**
+     * @param ArrayCollection $transactions
+     */
+    public function setTransactions($transactions)
+    {
+        $this->transactions = $transactions;
+    }
+
+    /**
+     * @param TransactionInterface $transaction
+     */
+    public function addTransaction(TransactionInterface $transaction)
+    {
+        $this->transactions->add($transaction);
     }
 
     /**
@@ -633,5 +673,37 @@ class Order implements OrderInterface
     public function setIsWaitingForPayment($isWaitingForPayment)
     {
         $this->isWaitingForPayment = (boolean) $isWaitingForPayment;
+    }
+
+    /**
+     * 
+     * @return type
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    /**
+     * 
+     * @param array|ArrayCollection $items
+     */
+    public function setItems($items)
+    {
+        if (!$items instanceof ArrayCollection) {
+            $items = new ArrayCollection($items);
+        }
+        $this->items = $items;
+    }
+
+    /**
+     * 
+     * @param AbstractItem $item
+     */
+    public function addItem(AbstractItem $item)
+    {
+        if (!$this->getItems()->contains($item)) {
+            $this->getItems()->add($item);
+        }
     }
 }

@@ -11,6 +11,9 @@ use Zoop\Shard\Annotation\Annotations as Shard;
 
 /**
  * @ODM\EmbeddedDocument
+ * @Shard\AccessControl({
+ *     @Shard\Permission\Basic(roles="*", allow="*")
+ * })
  */
 class PhysicalSku extends AbstractSku
 {
@@ -24,11 +27,6 @@ class PhysicalSku extends AbstractSku
      * @ODM\EmbedOne(targetDocument="Zoop\Product\DataModel\Dimensions")
      */
     protected $dimensions;
-
-    /**
-     * @ODM\Collection
-     */
-    protected $suppliers;
 
     public function __construct()
     {
@@ -65,21 +63,5 @@ class PhysicalSku extends AbstractSku
     public function setDimensions(Dimensions $dimensions)
     {
         $this->dimensions = $dimensions;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getSuppliers()
-    {
-        return $this->suppliers;
-    }
-
-    /**
-     * @param ArrayCollection $suppliers
-     */
-    public function setSuppliers(ArrayCollection $suppliers)
-    {
-        $this->suppliers = $suppliers;
     }
 }
