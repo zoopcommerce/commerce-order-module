@@ -2,6 +2,7 @@
 
 namespace Zoop\Order\DataModel\Item;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Zoop\Order\DataModel\Item\Price;
 use Zoop\Product\DataModel\ImageSet;
 //Annotation imports
@@ -17,28 +18,28 @@ use Zoop\Shard\Annotation\Annotations as Shard;
 abstract class AbstractItem
 {
     /**
-     *
+     * @ODM\Int
+     */
+    protected $legacyId;
+    
+    /**
      * @ODM\String
      */
     protected $brand;
     
     /**
-     *
      * @ODM\String
      * @Shard\Validator\Required
      */
     protected $name;
 
     /**
-     *
      * @ODM\EmbedMany(targetDocument="Zoop\Product\DataModel\ImageSet")
      */
     protected $imageSets;
 
     /**
-     *
      * @ODM\EmbedOne(targetDocument="Zoop\Order\DataModel\Item\Price")
-     * @Shard\Validator\Required
      */
     protected $price;
 
@@ -53,7 +54,6 @@ abstract class AbstractItem
     protected $state;
 
     /**
-     *
      * @ODM\Int
      */
     protected $quantity;
@@ -64,7 +64,22 @@ abstract class AbstractItem
     }
 
     /**
-     *
+     * @return int
+     */
+    public function getLegacyId()
+    {
+        return $this->legacyId;
+    }
+
+    /**
+     * @param int $legacyId
+     */
+    public function setLegacyId($legacyId)
+    {
+        $this->legacyId = (int) $legacyId;
+    }
+
+    /**
      * @return string
      */
     public function getBrand()
@@ -73,7 +88,6 @@ abstract class AbstractItem
     }
 
     /**
-     *
      * @param string $brand
      */
     public function setBrand($brand)
@@ -82,7 +96,6 @@ abstract class AbstractItem
     }
 
     /**
-     *
      * @return string
      */
     public function getName()
@@ -91,7 +104,6 @@ abstract class AbstractItem
     }
 
     /**
-     *
      * @param string $name
      */
     public function setName($name)
@@ -116,7 +128,6 @@ abstract class AbstractItem
     }
 
     /**
-     *
      * @param ImageSet $imageSet
      */
     public function addImageSet(ImageSet $imageSet)
@@ -125,7 +136,6 @@ abstract class AbstractItem
     }
 
     /**
-     *
      * @return Price
      */
     public function getPrice()
@@ -134,7 +144,6 @@ abstract class AbstractItem
     }
 
     /**
-     *
      * @param Price $price
      */
     public function setPrice(Price $price)
@@ -143,7 +152,6 @@ abstract class AbstractItem
     }
 
     /**
-     *
      * @return integer
      */
     public function getQuantity()
@@ -152,7 +160,6 @@ abstract class AbstractItem
     }
 
     /**
-     *
      * @param integer $quantity
      */
     public function setQuantity($quantity)

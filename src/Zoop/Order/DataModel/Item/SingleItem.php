@@ -17,7 +17,13 @@ use Zoop\Shard\Annotation\Annotations as Shard;
 class SingleItem extends AbstractItem
 {
     /**
-     * @ODM\EmbedOne(targetDocument="Zoop\Order\DataModel\Item\AbstractSku")
+     * @ODM\EmbedOne(
+     *      discriminatorField="type",
+     *      discriminatorMap={
+     *         "PhysicalSku"    = "Zoop\Order\DataModel\Item\PhysicalSku",
+     *         "DigitalSku"     = "Zoop\Order\DataModel\Item\DigitalSku"
+     *      }
+     * )
      */
     protected $sku;
 

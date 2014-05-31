@@ -39,11 +39,34 @@ abstract class AbstractSku
      *     },
      *     mappedBy="order"
      * )
+     * @Shard\Serializer\Ignore
+     * @Shard\Unserializer\Ignore
      */
     protected $inventory;
 
     /**
-     * @ODM\EmbedMany(targetDocument="Zoop\Order\DataModel\Item\Option\AbstractOption")
+     * @ODM\ReferenceOne(
+     *     discriminatorField="type",
+     *     discriminatorMap = {
+     *         "PhysicalSkuDefinition"  = "Zoop\Product\DataModel\PhysicalSkuDefinition",
+     *         "DigitalSkuDefinition"   = "Zoop\Product\DataModel\DigitalSkuDefinition"
+     *     }
+     * )
+     * @Shard\Serializer\Ignore
+     * @Shard\Unserializer\Ignore
+     */
+    protected $skuDefinition;
+
+    /**
+     * @ODM\EmbedMany(
+     *     discriminatorField="type",
+     *     discriminatorMap={
+     *         "Dropdown"       = "Zoop\Order\DataModel\Item\Option\Dropdown",
+     *         "FileUpload"     = "Zoop\Order\DataModel\Item\Option\FileUpload",
+     *         "Radio"          = "Zoop\Order\DataModel\Item\Option\Radio",
+     *         "Text"           = "Zoop\Order\DataModel\Item\Option\Text"
+     *     }
+     * )
      */
     protected $options;
     

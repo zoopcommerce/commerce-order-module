@@ -129,7 +129,13 @@ class Order implements OrderInterface
 
     /**
      *
-     * @ODM\EmbedMany(targetDocument="Zoop\Order\DataModel\Item\AbstractItem")
+     * @ODM\EmbedMany(
+     *     discriminatorField="type",
+     *     discriminatorMap={
+     *         "SingleItem"     = "Zoop\Order\DataModel\Item\SingleItem",
+     *         "Bundle"         = "Zoop\Legacy\Promotion\DataModel\Bundle"
+     *     }
+     * )
      */
     protected $items;
 
@@ -168,7 +174,7 @@ class Order implements OrderInterface
      *     "payment-charged-back"
      * })
      */
-    protected $state;
+    protected $state = 'in-progress';
 
     /**
      * @ODM\EmbedMany(targetDocument="Zoop\Order\DataModel\History")
@@ -627,7 +633,7 @@ class Order implements OrderInterface
      */
     public function getHasProducts()
     {
-        return (($this->getTotal()->getProductPrice() > 0) || $this->hasProducts);
+        return (($this->getTotal()->getProductListPrice() > 0) || $this->hasProducts);
     }
 
     /**
