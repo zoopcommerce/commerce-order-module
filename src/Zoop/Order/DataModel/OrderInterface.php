@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Zoop\Common\DataModel\Address;
 use Zoop\Order\DataModel\Total;
 use Zoop\Order\DataModel\Commission;
+use Zoop\Order\DataModel\History;
+use Zoop\Store\DataModel\Store;
 
 interface OrderInterface
 {
@@ -23,9 +25,21 @@ interface OrderInterface
 
     /**
      *
+     * @param string $store
+     */
+    public function setStore(Store $store);
+
+    /**
+     *
      * @return Total
      */
     public function getTotal();
+
+    /**
+     *
+     * @param Total $total
+     */
+    public function setTotal(Total $total);
 
     /**
      *
@@ -35,9 +49,21 @@ interface OrderInterface
 
     /**
      *
+     * @param string $shippingMethod
+     */
+    public function setShippingMethod($shippingMethod);
+
+    /**
+     *
      * @return int
      */
     public function getLegacyId();
+
+    /**
+     *
+     * @param int $legacyId
+     */
+    public function setLegacyId($legacyId);
 
     /**
      *
@@ -47,14 +73,38 @@ interface OrderInterface
 
     /**
      *
-     * @return History
+     * @param string $state
+     */
+    public function setState($state);
+
+    /**
+     *
+     * @return ArrayCollection
      */
     public function getHistory();
+
+    /**
+     *
+     * @param ArrayCollection $history
+     */
+    public function setHistory(ArrayCollection $history);
+
+    /**
+     *
+     * @param History $history
+     */
+    public function addHistory(History $history);
 
     /**
      * @return Commission
      */
     public function getCommission();
+
+    /**
+     *
+     * @param Commission $commission
+     */
+    public function setCommission(Commission $commission);
 
     /**
      *
@@ -64,9 +114,21 @@ interface OrderInterface
 
     /**
      *
+     * @param string $email
+     */
+    public function setEmail($email);
+
+    /**
+     *
      * @return string
      */
     public function getFirstName();
+
+    /**
+     *
+     * @param string $firstName
+     */
+    public function setFirstName($firstName);
 
     /**
      *
@@ -76,15 +138,27 @@ interface OrderInterface
 
     /**
      *
-     * @return string
+     * @param string $lastName
      */
-    public function getFullName();
+    public function setLastName($lastName);
 
     /**
      *
      * @return string
      */
+    public function getFullName();
+    
+    /**
+     *
+     * @return string
+     */
     public function getPhone();
+
+    /**
+     *
+     * @param string $phone
+     */
+    public function setPhone($phone);
 
     /**
      *
@@ -94,15 +168,33 @@ interface OrderInterface
 
     /**
      *
+     * @param Address $address
+     */
+    public function setAddress(Address $address);
+
+    /**
+     *
      * @return string
      */
     public function getCoupon();
 
     /**
      *
+     * @param string $coupon
+     */
+    public function setCoupon($coupon);
+
+    /**
+     *
      * @return boolean
      */
-    public function getInvoiceSent();
+    public function isInvoiceSent();
+
+    /**
+     *
+     * @param string $coupon
+     */
+    public function setIsInvoiceSent($invoiceSent);
 
     /**
      *
@@ -112,9 +204,21 @@ interface OrderInterface
 
     /**
      *
+     * @param ArrayCollection $promotions
+     */
+    public function setPromotions(ArrayCollection $promotions);
+
+    /**
+     *
      * @return string
      */
     public function getPaymentMethod();
+
+    /**
+     *
+     * @param string $paymentMethod
+     */
+    public function setPaymentMethod($paymentMethod);
 
     /**
      *
@@ -124,19 +228,37 @@ interface OrderInterface
 
     /**
      *
-     * @return boolean
+     * @param DateTime $dateCompleted
      */
-    public function getHasProducts();
+    public function setDateCompleted(DateTime $dateCompleted);
 
     /**
      *
      * @return boolean
      */
-    public function getIsComplete();
+    public function hasProducts();
 
     /**
      *
      * @return boolean
      */
-    public function getIsWaitingForPayment();
+    public function isComplete();
+
+    /**
+     *
+     * @param boolean $isComplete
+     */
+    public function setIsComplete($isComplete);
+
+    /**
+     *
+     * @return boolean
+     */
+    public function isWaitingForPayment();
+
+    /**
+     *
+     * @param boolean $isWaitingForPayment
+     */
+    public function setIsWaitingForPayment($isWaitingForPayment);
 }

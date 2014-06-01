@@ -9,6 +9,7 @@ use Zoop\Order\DataModel\Total;
 use Zoop\Order\DataModel\Commission;
 use Zoop\Order\DataModel\OrderInterface;
 use Zoop\Store\DataModel\Store;
+use Zoop\Order\DataModel\History;
 use Zoop\Order\DataModel\Item\SingleItem;
 use Zoop\Order\DataModel\Item\Bundle;
 use Zoop\Shard\Stamp\DataModel\CreatedOnTrait;
@@ -228,7 +229,7 @@ class Order implements OrderInterface
      *
      * @ODM\Boolean
      */
-    protected $invoiceSent = false;
+    protected $isInvoiceSent = false;
 
     /**
      *
@@ -382,7 +383,7 @@ class Order implements OrderInterface
      *
      * @param Histroy $history
      */
-    public function addHistory(Histroy $history)
+    public function addHistory(History $history)
     {
         $this->getHistory()->add($history);
     }
@@ -548,18 +549,18 @@ class Order implements OrderInterface
      *
      * @return boolean
      */
-    public function getInvoiceSent()
+    public function isInvoiceSent()
     {
-        return $this->invoiceSent;
+        return $this->isInvoiceSent;
     }
 
     /**
      *
-     * @param boolean $invoiceSent
+     * @param boolean $isInvoiceSent
      */
-    public function setInvoiceSent($invoiceSent)
+    public function setIsInvoiceSent($isInvoiceSent)
     {
-        $this->invoiceSent = (bool) $invoiceSent;
+        $this->isInvoiceSent = (bool) $isInvoiceSent;
     }
 
     /**
@@ -568,6 +569,9 @@ class Order implements OrderInterface
      */
     public function getPromotions()
     {
+        if(!isset($this->promotions)) {
+            $this->promotions = new ArrayCollection;
+        }
         return $this->promotions;
     }
 
@@ -636,7 +640,7 @@ class Order implements OrderInterface
      *
      * @return boolean
      */
-    public function getHasProducts()
+    public function hasProducts()
     {
         return (($this->getTotal()->getProductListPrice() > 0) || $this->hasProducts);
     }
@@ -654,7 +658,7 @@ class Order implements OrderInterface
      *
      * @return boolean
      */
-    public function getIsComplete()
+    public function isComplete()
     {
         return $this->isComplete;
     }
@@ -672,7 +676,7 @@ class Order implements OrderInterface
      *
      * @return boolean
      */
-    public function getIsWaitingForPayment()
+    public function isWaitingForPayment()
     {
         return $this->isWaitingForPayment;
     }
