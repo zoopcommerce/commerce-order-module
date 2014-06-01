@@ -29,6 +29,7 @@ class OrderTest extends AbstractTest
     public function testActiveOrderManager()
     {
         $order = TestData::createOrder(self::getUnserializer());
+        
         $this->getDocumentManager()->persist($order);
         $this->getDocumentManager()->flush($order);
         
@@ -46,5 +47,9 @@ class OrderTest extends AbstractTest
         $this->assertInstanceOf('Zoop\Order\DataModel\Order', $order);
         $this->assertNotEmpty($order->getId());
         $this->assertEquals('testorder@order.com', $order->getEmail());
+        
+        $items = $order->getItems();
+        $this->assertCount(1, $items);
+        $this->assertEquals(50, $items[0]->getPrice()->getList());
     }
 }

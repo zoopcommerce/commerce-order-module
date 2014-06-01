@@ -2,8 +2,9 @@
 
 namespace Zoop\Order\DataModel\Item;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Zoop\Order\DataModel\Item\AbstractSku;
+use Zoop\Order\DataModel\Item\PhysicalSku;
+use Zoop\Order\DataModel\Item\DigitalSku;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;

@@ -9,6 +9,8 @@ use Zoop\Order\DataModel\Total;
 use Zoop\Order\DataModel\Commission;
 use Zoop\Order\DataModel\OrderInterface;
 use Zoop\Store\DataModel\Store;
+use Zoop\Order\DataModel\Item\SingleItem;
+use Zoop\Order\DataModel\Item\Bundle;
 use Zoop\Shard\Stamp\DataModel\CreatedOnTrait;
 use Zoop\Shard\Stamp\DataModel\UpdatedOnTrait;
 use Zoop\Promotion\DataModel\PromotionInterface;
@@ -133,7 +135,7 @@ class Order implements OrderInterface
      *     discriminatorField="type",
      *     discriminatorMap={
      *         "SingleItem"     = "Zoop\Order\DataModel\Item\SingleItem",
-     *         "Bundle"         = "Zoop\Legacy\Promotion\DataModel\Bundle"
+     *         "Bundle"         = "Zoop\Order\DataModel\Item\Bundle"
      *     }
      * )
      */
@@ -180,16 +182,6 @@ class Order implements OrderInterface
      * @ODM\EmbedMany(targetDocument="Zoop\Order\DataModel\History")
      */
     protected $history;
-//
-//    /**
-//     * @ODM\EmbedMany(
-//     *     discriminatorField="type",
-//     *     discriminatorMap={
-//     *         "PayPal\ChainedPayment"   = " Zoop\Payment\Gateway\PayPal\ChainedPayment\DataModel\Transaction"
-//     *     }
-//     * )
-//     */
-//    protected $transactions;
 
     /**
      * @ODM\EmbedOne(targetDocument="Zoop\Order\DataModel\Commission")
@@ -266,7 +258,8 @@ class Order implements OrderInterface
     {
         $this->items = new ArrayCollection();
         $this->promotions = new ArrayCollection();
-        $this->transactions = new ArrayCollection();
+        $this->history = new ArrayCollection();
+//        $this->transactions = new ArrayCollection();
     }
 
     public function getId()
@@ -366,20 +359,32 @@ class Order implements OrderInterface
 
     /**
      *
-     * @return History
+     * @return ArrayCollection
      */
     public function getHistory()
     {
+        if(!isset($this->history)) {
+            $this->history = new ArrayCollection();
+        }
         return $this->history;
     }
 
     /**
      *
-     * @param History $history
+     * @param ArrayCollection $history
      */
-    public function setHistory(History $history)
+    public function setHistory(ArrayCollection $history)
     {
         $this->history = $history;
+    }
+
+    /**
+     *
+     * @param Histroy $history
+     */
+    public function addHistory(Histroy $history)
+    {
+        $this->getHistory()->add($history);
     }
 
     /**
@@ -403,7 +408,7 @@ class Order implements OrderInterface
      */
     public function addTransaction(TransactionInterface $transaction)
     {
-        $this->transactions->add($transaction);
+        $this->getTransactions()->add($transaction);
     }
 
     /**
@@ -599,8 +604,8 @@ class Order implements OrderInterface
      */
     public function addPromotion(PromotionInterface $promotion)
     {
-        if (!$this->promotions->contains($promotion)) {
-            $this->promotions->add($promotion);
+        if (!$this->getPromotions()->contains($promotion)) {
+            $this->getPromotions()->add($promotion);
         }
     }
 
@@ -683,10 +688,13 @@ class Order implements OrderInterface
 
     /**
      * 
-     * @return type
+     * @return ArrayCollection
      */
     public function getItems()
     {
+        if(!isset($this->items)) {
+            $this->items = new ArrayCollection();
+        }
         return $this->items;
     }
 

@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6a66ac9c6dcf92a04f431cb2d2eff237",
+    "hash": "c26a6771c8428046f1a554290531939c",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "2.6.5",
+            "version": "2.6.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "459e83a318911eb6685d0a6fd2dcd0495a660a51"
+                "reference": "37d5572e2408c5ea7104c361b64a187b1a0a53bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/459e83a318911eb6685d0a6fd2dcd0495a660a51",
-                "reference": "459e83a318911eb6685d0a6fd2dcd0495a660a51",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/37d5572e2408c5ea7104c361b64a187b1a0a53bd",
+                "reference": "37d5572e2408c5ea7104c361b64a187b1a0a53bd",
                 "shasum": ""
             },
             "require": {
@@ -72,7 +72,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2014-05-22 23:03:48"
+            "time": "2014-05-29 18:57:57"
         },
         {
             "name": "codeguy/upload",
@@ -160,7 +160,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan Wage",
+                    "name": "Jonathan H. Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/",
                     "role": "Creator"
@@ -1658,32 +1658,34 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.4.5",
+            "version": "v2.5.0",
             "target-dir": "Symfony/Component/Console",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "24f723436e62598c9dddee2a8573d6992504dc5d"
+                "reference": "ef4ca73b0b3a10cbac653d3ca482d0cdd4502b2c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/24f723436e62598c9dddee2a8573d6992504dc5d",
-                "reference": "24f723436e62598c9dddee2a8573d6992504dc5d",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/ef4ca73b0b3a10cbac653d3ca482d0cdd4502b2c",
+                "reference": "ef4ca73b0b3a10cbac653d3ca482d0cdd4502b2c",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
+                "psr/log": "~1.0",
                 "symfony/event-dispatcher": "~2.1"
             },
             "suggest": {
+                "psr/log": "For using the console logger",
                 "symfony/event-dispatcher": ""
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4-dev"
+                    "dev-master": "2.5-dev"
                 }
             },
             "autoload": {
@@ -1709,7 +1711,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-05-14 21:48:29"
+            "time": "2014-05-22 08:54:24"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -2150,12 +2152,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:zoopcommerce/commerce-product-module.git",
-                "reference": "1bea1a9d494bf116999caa4cfdb37bcc209b9d60"
+                "reference": "aad508688b5a200d5e2849135cdb3e016bcbf8e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zoopcommerce/commerce-product-module/zipball/1bea1a9d494bf116999caa4cfdb37bcc209b9d60",
-                "reference": "1bea1a9d494bf116999caa4cfdb37bcc209b9d60",
+                "url": "https://api.github.com/repos/zoopcommerce/commerce-product-module/zipball/aad508688b5a200d5e2849135cdb3e016bcbf8e6",
+                "reference": "aad508688b5a200d5e2849135cdb3e016bcbf8e6",
                 "shasum": ""
             },
             "require": {
@@ -2216,7 +2218,7 @@
                 "source": "https://github.com/zoopcommerce/commerce-product-module/tree/master",
                 "issues": "https://github.com/zoopcommerce/commerce-product-module/issues"
             },
-            "time": "2014-05-25 07:10:35"
+            "time": "2014-05-31 08:03:35"
         },
         {
             "name": "zoopcommerce/commerce-promotion-module",
@@ -2224,12 +2226,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:zoopcommerce/commerce-promotion-module.git",
-                "reference": "412022390779e5db22c38f3ac6b87b8a42d75593"
+                "reference": "66fb9627127f4fd6cac228ff5cee609d6e9a843a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zoopcommerce/commerce-promotion-module/zipball/412022390779e5db22c38f3ac6b87b8a42d75593",
-                "reference": "412022390779e5db22c38f3ac6b87b8a42d75593",
+                "url": "https://api.github.com/repos/zoopcommerce/commerce-promotion-module/zipball/66fb9627127f4fd6cac228ff5cee609d6e9a843a",
+                "reference": "66fb9627127f4fd6cac228ff5cee609d6e9a843a",
                 "shasum": ""
             },
             "require": {
@@ -2297,7 +2299,7 @@
                 "source": "https://github.com/zoopcommerce/commerce-promotion-module/tree/master",
                 "issues": "https://github.com/zoopcommerce/commerce-promotion-module/issues"
             },
-            "time": "2014-05-25 07:31:59"
+            "time": "2014-05-25 08:03:51"
         },
         {
             "name": "zoopcommerce/commerce-store-module",
@@ -2634,16 +2636,16 @@
         },
         {
             "name": "zoopcommerce/shard",
-            "version": "4.0.3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/zoopcommerce/shard.git",
-                "reference": "c8e8994bb641bbc2b396b8e08a8f796954048a14"
+                "url": "https://github.com/crimsonronin/shard.git",
+                "reference": "b15cc48040a3d084b837684f6e9ad3981b7f22f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zoopcommerce/shard/zipball/c8e8994bb641bbc2b396b8e08a8f796954048a14",
-                "reference": "c8e8994bb641bbc2b396b8e08a8f796954048a14",
+                "url": "https://api.github.com/repos/crimsonronin/shard/zipball/02b46c4ecf229b6512ab7c9020dcb7a9c22b69e5",
+                "reference": "b15cc48040a3d084b837684f6e9ad3981b7f22f8",
                 "shasum": ""
             },
             "require": {
@@ -2669,15 +2671,13 @@
                     "Zoop\\Shard": "lib/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
                 {
                     "name": "Tim Roediger",
-                    "email": "superdweebie@gmail.com",
-                    "homepage": "http://github.com/superdweebie"
+                    "email": "superdweebie@gmail.com"
                 }
             ],
             "description": "Add new behaviours to Doctrine Mongo ODM Documents",
@@ -2688,7 +2688,10 @@
                 "odm",
                 "zoop"
             ],
-            "time": "2014-02-25 09:12:08"
+            "support": {
+                "source": "https://github.com/crimsonronin/shard/tree/master"
+            },
+            "time": "2014-06-01 01:27:29"
         },
         {
             "name": "zoopcommerce/shard-module",
@@ -2819,16 +2822,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "2.0.6",
+            "version": "2.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "bccecf50645068b44f49a84009e2a0499a500b99"
+                "reference": "58401826c8cfc8fd689b60026e91c337df374bca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/bccecf50645068b44f49a84009e2a0499a500b99",
-                "reference": "bccecf50645068b44f49a84009e2a0499a500b99",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/58401826c8cfc8fd689b60026e91c337df374bca",
+                "reference": "58401826c8cfc8fd689b60026e91c337df374bca",
                 "shasum": ""
             },
             "require": {
@@ -2880,7 +2883,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-04-30 09:01:21"
+            "time": "2014-05-26 14:55:24"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -3586,17 +3589,17 @@
         },
         {
             "name": "symfony/dependency-injection",
-            "version": "v2.4.5",
+            "version": "v2.5.0",
             "target-dir": "Symfony/Component/DependencyInjection",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DependencyInjection.git",
-                "reference": "42fdd797519b04077225bf8de04742e67a1f0e6c"
+                "reference": "5dfb4c2b74c4976efe1efa783370da656a2dd742"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DependencyInjection/zipball/42fdd797519b04077225bf8de04742e67a1f0e6c",
-                "reference": "42fdd797519b04077225bf8de04742e67a1f0e6c",
+                "url": "https://api.github.com/repos/symfony/DependencyInjection/zipball/5dfb4c2b74c4976efe1efa783370da656a2dd742",
+                "reference": "5dfb4c2b74c4976efe1efa783370da656a2dd742",
                 "shasum": ""
             },
             "require": {
@@ -3615,7 +3618,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4-dev"
+                    "dev-master": "2.5-dev"
                 }
             },
             "autoload": {
@@ -3641,21 +3644,21 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "http://symfony.com",
-            "time": "2014-05-12 09:27:48"
+            "time": "2014-05-12 09:28:39"
         },
         {
             "name": "symfony/filesystem",
-            "version": "v2.4.5",
+            "version": "v2.5.0",
             "target-dir": "Symfony/Component/Filesystem",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Filesystem.git",
-                "reference": "a3af8294bcce4a7c1b2892363b0c9d8109affad4"
+                "reference": "98e831eac836a0a5911626ce82684155f21d0e4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/a3af8294bcce4a7c1b2892363b0c9d8109affad4",
-                "reference": "a3af8294bcce4a7c1b2892363b0c9d8109affad4",
+                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/98e831eac836a0a5911626ce82684155f21d0e4d",
+                "reference": "98e831eac836a0a5911626ce82684155f21d0e4d",
                 "shasum": ""
             },
             "require": {
@@ -3664,7 +3667,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4-dev"
+                    "dev-master": "2.5-dev"
                 }
             },
             "autoload": {
@@ -3690,7 +3693,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "http://symfony.com",
-            "time": "2014-04-16 10:34:31"
+            "time": "2014-04-16 10:36:21"
         },
         {
             "name": "symfony/yaml",
@@ -3828,6 +3831,12 @@
             "alias_normalized": "9999999-dev",
             "version": "9999999-dev",
             "package": "melihucar/ftpclient"
+        },
+        {
+            "alias": "4.0.2",
+            "alias_normalized": "4.0.2.0",
+            "version": "9999999-dev",
+            "package": "zoopcommerce/shard"
         }
     ],
     "minimum-stability": "stable",
@@ -3846,7 +3855,8 @@
         "zoopcommerce/commerce-payment-module": 20,
         "zoopcommerce/commerce-product-module": 20,
         "zoopcommerce/commerce-promotion-module": 20,
-        "zoopcommerce/commerce-store-module": 20
+        "zoopcommerce/commerce-store-module": 20,
+        "zoopcommerce/shard": 20
     },
     "platform": {
         "php": ">=5.4"
