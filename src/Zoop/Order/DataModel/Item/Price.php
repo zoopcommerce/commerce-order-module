@@ -2,6 +2,8 @@
 
 namespace Zoop\Order\DataModel\Item;
 
+use Zoop\Order\DataModel\Item\UnitPrice;
+use Zoop\Order\DataModel\Item\TotalPrice;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
@@ -15,132 +17,29 @@ use Zoop\Shard\Annotation\Annotations as Shard;
 class Price
 {
     /**
-     * Wholesale price per unit
-     * 
-     * @ODM\Float
+     *
+     * @ODM\EmbedOne(targetDocument="Zoop\Order\DataModel\Item\UnitPrice")
      */
-    protected $wholesale;
+    protected $unit;
 
     /**
-     * List price per unit
-     * 
-     * @ODM\Float
-     */
-    protected $list;
-
-    /**
-     * List x Quantity
-     * 
-     * @ODM\Float
-     */
-    protected $subTotal;
-
-    /**
-     * Discount per unit
-     * 
-     * @ODM\Float
-     */
-    protected $discount;
-
-    /**
-     * (List x Quantity) - (Discount x Quantity)
-     * 
-     * @ODM\Float
+     *
+     * @ODM\EmbedOne(targetDocument="Zoop\Order\DataModel\Item\TotalPrice")
      */
     protected $total;
 
     /**
-     * Tax included per unit
      * 
-     * @ODM\Float
+     * @return UnitPrice
      */
-    protected $taxIncluded;
+    public function getUnit()
+    {
+        return $this->unit;
+    }
 
     /**
-     * Shipping cost per unit (not included in total)
      * 
-     * @ODM\Float
-     */
-    protected $shipping;
-
-    /**
-     * Wholesale price per unit
-     * 
-     * @return float
-     */
-    public function getWholesale()
-    {
-        return $this->wholesale;
-    }
-
-    /**
-     *
-     * @param float $wholesale
-     */
-    public function setWholesale($wholesale)
-    {
-        $this->wholesale = (float) $wholesale;
-    }
-
-    /**
-     * List price per unit
-     * @return float
-     */
-    public function getList()
-    {
-        return $this->list;
-    }
-
-    /**
-     *
-     * @param float $list
-     */
-    public function setList($list)
-    {
-        $this->list = (float) $list;
-    }
-
-    /**
-     * List x Quantity
-     * 
-     * @return float
-     */
-    public function getSubTotal()
-    {
-        return $this->subTotal;
-    }
-
-    /**
-     *
-     * @param float $subTotal
-     */
-    public function setSubTotal($subTotal)
-    {
-        $this->subTotal = (float) $subTotal;
-    }
-
-    /**
-     * Discount per unit
-     * 
-     * @return float
-     */
-    public function getDiscount()
-    {
-        return $this->discount;
-    }
-
-    /**
-     *
-     * @param float $discount
-     */
-    public function setDiscount($discount)
-    {
-        $this->discount = (float) $discount;
-    }
-
-    /**
-     *
-     * @return float
+     * @return TotalPrice
      */
     public function getTotal()
     {
@@ -148,50 +47,20 @@ class Price
     }
 
     /**
-     * (List x Quantity) - (Discount x Quantity)
      * 
-     * @param float $total
+     * @param UnitPrice $unit
      */
-    public function setTotal($total)
+    public function setUnit(UnitPrice $unit)
     {
-        $this->total = (float) $total;
+        $this->unit = $unit;
     }
 
     /**
-     * Tax included per unit
      * 
-     * @return float
+     * @param TotalPrice $total
      */
-    public function getTaxIncluded()
+    public function setTotal(TotalPrice $total)
     {
-        return $this->taxIncluded;
-    }
-
-    /**
-     *
-     * @param float $taxIncluded
-     */
-    public function setTaxIncluded($taxIncluded)
-    {
-        $this->taxIncluded = (float) $taxIncluded;
-    }
-
-    /**
-     * Shipping cost per unit (not included in total)
-     * 
-     * @return float
-     */
-    public function getShipping()
-    {
-        return $this->shipping;
-    }
-
-    /**
-     *
-     * @param float $shipping
-     */
-    public function setShipping($shipping)
-    {
-        $this->shipping = (float) $shipping;
+        $this->total = $total;
     }
 }
