@@ -3,6 +3,7 @@
 namespace Zoop\Order\DataModel\Item;
 
 use Zoop\Order\DataModel\Item\AbstractSku;
+use Zoop\Order\DataModel\Item\ItemInterface;
 use Zoop\Order\DataModel\Item\PhysicalSku;
 use Zoop\Order\DataModel\Item\DigitalSku;
 //Annotation imports
@@ -15,7 +16,7 @@ use Zoop\Shard\Annotation\Annotations as Shard;
  *     @Shard\Permission\Basic(roles="*", allow="*")
  * })
  */
-class SingleItem extends AbstractItem
+class SingleItem extends AbstractItem implements ItemInterface
 {
     /**
      * @ODM\EmbedOne(

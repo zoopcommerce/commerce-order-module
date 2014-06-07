@@ -2,6 +2,7 @@
 
 namespace Zoop\Order\DataModel\Item;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Zoop\Order\DataModel\Item\Price;
 use Zoop\Product\DataModel\ImageSet;
 

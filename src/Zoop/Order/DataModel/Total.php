@@ -35,6 +35,12 @@ class Total
 
     /**
      *
+     * @ODM\Float
+     */
+    protected $productSubTotalPrice;
+
+    /**
+     *
      * @ODM\Int
      */
     protected $productQuantity;
@@ -111,6 +117,22 @@ class Total
     public function setProductListPrice($productListPrice)
     {
         $this->productListPrice = $productListPrice;
+    }
+    
+    /**
+     * @return float
+     */
+    public function getProductSubTotalPrice()
+    {
+        return $this->productSubTotalPrice;
+    }
+
+    /**
+     * @param float $productSubTotalPrice
+     */
+    public function setProductSubTotalPrice($productSubTotalPrice)
+    {
+        $this->productSubTotalPrice = (float) $productSubTotalPrice;
     }
 
     /**

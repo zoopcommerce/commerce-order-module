@@ -4,6 +4,7 @@ namespace Zoop\Order\DataModel\Item;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Zoop\Order\DataModel\Item\AbstractItem;
+use Zoop\Order\DataModel\Item\ItemInterface;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
@@ -14,7 +15,7 @@ use Zoop\Shard\Annotation\Annotations as Shard;
  *     @Shard\Permission\Basic(roles="*", allow="*")
  * })
  */
-class Bundle extends AbstractItem
+class Bundle extends AbstractItem implements ItemInterface
 {
     /**
      *
