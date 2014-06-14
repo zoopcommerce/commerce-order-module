@@ -8,6 +8,7 @@ use Zoop\Common\DataModel\Address;
 use Zoop\Order\DataModel\Total;
 use Zoop\Order\DataModel\Commission;
 use Zoop\Order\DataModel\History;
+use Zoop\Promotion\DataModel\PromotionInterface;
 use Zoop\Store\DataModel\Store;
 
 interface OrderInterface
@@ -207,6 +208,12 @@ interface OrderInterface
      * @param ArrayCollection $promotions
      */
     public function setPromotions(ArrayCollection $promotions);
+
+    /**
+     *
+     * @param PromotionInterface $promotion
+     */
+    public function addPromotion(PromotionInterface $promotion);
 
     /**
      *
