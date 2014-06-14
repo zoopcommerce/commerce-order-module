@@ -99,7 +99,7 @@ abstract class AbstractSku
      */
     public function getOptions()
     {
-        if(!$this->options instanceof ArrayCollection) {
+        if(!isset($this->options)) {
             $this->options = new ArrayCollection;
         }
         return $this->options;
@@ -127,7 +127,7 @@ abstract class AbstractSku
      */
     public function getSuppliers()
     {
-        if(!$this->suppliers instanceof ArrayCollection) {
+        if(!isset($this->suppliers)) {
             $this->suppliers = new ArrayCollection;
         }
         return $this->suppliers;
