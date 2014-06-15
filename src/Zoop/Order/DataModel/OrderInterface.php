@@ -5,6 +5,7 @@ namespace Zoop\Order\DataModel;
 use \DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Zoop\Common\DataModel\Address;
+use Zoop\Order\DataModel\Item\AbstractItem;
 use Zoop\Order\DataModel\Total;
 use Zoop\Order\DataModel\Commission;
 use Zoop\Order\DataModel\History;
@@ -268,4 +269,22 @@ interface OrderInterface
      * @param boolean $isWaitingForPayment
      */
     public function setIsWaitingForPayment($isWaitingForPayment);
+    
+     /**
+     * 
+     * @return ArrayCollection
+     */
+    public function getItems();
+
+    /**
+     * 
+     * @param array|ArrayCollection $items
+     */
+    public function setItems($items);
+
+    /**
+     * 
+     * @param AbstractItem $item
+     */
+    public function addItem(AbstractItem $item);
 }

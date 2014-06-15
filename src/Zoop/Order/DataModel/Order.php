@@ -10,6 +10,7 @@ use Zoop\Order\DataModel\Commission;
 use Zoop\Order\DataModel\OrderInterface;
 use Zoop\Store\DataModel\Store;
 use Zoop\Order\DataModel\History;
+use Zoop\Order\DataModel\Item\AbstractItem;
 use Zoop\Order\DataModel\Item\SingleItem;
 use Zoop\Order\DataModel\Item\Bundle;
 use Zoop\Shard\Stamp\DataModel\CreatedOnTrait;

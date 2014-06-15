@@ -3,7 +3,6 @@
 namespace Zoop\Order\DataModel\Item;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Zoop\Inventory\DataModel\AbstractInventory;
 use Zoop\Order\DataModel\Item\Option\AbstractOption;
 
 //Annotation imports
@@ -19,43 +18,15 @@ use Zoop\Shard\Annotation\Annotations as Shard;
 abstract class AbstractSku
 {
     /**
-     *
      * @ODM\Int
      */
     protected $legacyId;
 
     /**
-     *
      * @ODM\Collection
      */
     protected $suppliers;
 
-    /**
-     * @ODM\ReferenceOne(
-     *     discriminatorField="type",
-     *     discriminatorMap={
-     *         "discrete"    = "Zoop\Inventory\DataModel\DiscreteInventory",
-     *         "infinite"    = "Zoop\Inventory\DataModel\InfiniteInventory"
-     *     },
-     *     mappedBy="order"
-     * )
-     * @Shard\Serializer\Ignore
-     * @Shard\Unserializer\Ignore
-     */
-    protected $inventory;
-
-    /**
-     * @ODM\ReferenceOne(
-     *     discriminatorField="type",
-     *     discriminatorMap = {
-     *         "PhysicalSkuDefinition"  = "Zoop\Product\DataModel\PhysicalSkuDefinition",
-     *         "DigitalSkuDefinition"   = "Zoop\Product\DataModel\DigitalSkuDefinition"
-     *     }
-     * )
-     * @Shard\Serializer\Ignore
-     * @Shard\Unserializer\Ignore
-     */
-    protected $skuDefinition;
 
     /**
      * @ODM\EmbedMany(
@@ -70,30 +41,6 @@ abstract class AbstractSku
      */
     protected $options;
     
-    /**
-     * @return array
-     */
-    public function getInventory()
-    {
-        return $this->inventory;
-    }
-
-    /**
-     * @param array $inventory
-     */
-    public function setInventory($inventory)
-    {
-        $this->inventory = $inventory;
-    }
-
-    /**
-     * @param AbstractInventory $inventory
-     */
-    public function addInventory(AbstractInventory $inventory)
-    {
-        $this->inventory->add($inventory);
-    }
-
     /**
      * @return ArrayCollection
      */
