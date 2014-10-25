@@ -3,16 +3,18 @@ language: php
 php: 
   - 5.4
   - 5.5
+  - 5.6
 
 matrix:
   allow_failures:
     - php: 5.5
+    - php: 5.6
 
 services:
   - mongodb
 
 env:
-    secure: V7O1twe51epXlPutFOXRKgePE4VCVAVc26nuFJqgUXWLBLfnK7F/CLL1EMMUukDx7bGDjf3tIYQt3L17mdA0jekLMEmhv4tHqnazEU5098QRtHTAWFabBqUcryTr1fK5acSyMu4u0oxhflk9+kbbZVdxkoYF6JbmSKDQNXWXeN1Nj8xT9bft1mZ0bEjjzo9BbIL2tYJU86tXYvn7y/2OSZcvDuROh4SP6f5MKiu88IxY/JySRCCL6ridP1l8eyJsmxWcP4zLWfcmb0Mm+CfpTTLec4KfvK3yvsD54H6fhvoX3Tax0wHcz8nPn5WYmZlaj7BN1ebLpNniYdiW8H3g0g==
+  - secure: j6HrKTI0NnVQLwjG/Nhtd7+hVhHXFqfdYLleez8CIGPKHJ2RQGAoAqv1ftDCbGmLjcPpz9+RH32wE5xr8kgB9zws8wK2LP6UAjlA1O58gUJU9KDX4aPLJN2jtsasqzIoG5yITNbd46+uo6Ewj9BNt+yg69ZIe+vborXmnLZSnvC58LDE2TIT7XCns+onqcA0iQU5WO5Un7PV+hPVtWfAzyvcYkdhOxEMkFS5B7T+BeJwkDzZF4KU+cJm2nKGgaQYqJ+lcZHxB0krYmappzVMNrn6p+dBRcxx8CK5JrZCsvwfyPjoO+hlpgcMouh7PmZVvKYSVUtKaWjrbmi53RPWhQ==
 
 before_script: 
   - mkdir -p shippable/testresults
