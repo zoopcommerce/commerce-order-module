@@ -1769,12 +1769,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:zoopcommerce/commerce-public-apis-module.git",
-                "reference": "993aba59c02bd6a9e8acae58ebbac8aeceaf28f1"
+                "reference": "de8cbd52497630fed8b335f40faefb50529f4967"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zoopcommerce/commerce-public-apis-module/zipball/993aba59c02bd6a9e8acae58ebbac8aeceaf28f1",
-                "reference": "993aba59c02bd6a9e8acae58ebbac8aeceaf28f1",
+                "url": "https://api.github.com/repos/zoopcommerce/commerce-public-apis-module/zipball/de8cbd52497630fed8b335f40faefb50529f4967",
+                "reference": "de8cbd52497630fed8b335f40faefb50529f4967",
                 "shasum": ""
             },
             "require": {
@@ -1815,7 +1815,7 @@
                 "source": "https://github.com/zoopcommerce/commerce-public-apis-module/tree/master",
                 "issues": "https://github.com/zoopcommerce/commerce-public-apis-module/issues"
             },
-            "time": "2014-10-25 00:36:15"
+            "time": "2014-10-25 02:48:20"
         },
         {
             "name": "zoopcommerce/commerce-public-data-models-module",
@@ -1823,12 +1823,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:zoopcommerce/commerce-public-data-models-module.git",
-                "reference": "b96855d025baed7bfd4d9aec16b6ca7745a7070c"
+                "reference": "4b2e1440f7d834d07682ed310e4ffc58840427fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zoopcommerce/commerce-public-data-models-module/zipball/b96855d025baed7bfd4d9aec16b6ca7745a7070c",
-                "reference": "b96855d025baed7bfd4d9aec16b6ca7745a7070c",
+                "url": "https://api.github.com/repos/zoopcommerce/commerce-public-data-models-module/zipball/4b2e1440f7d834d07682ed310e4ffc58840427fe",
+                "reference": "4b2e1440f7d834d07682ed310e4ffc58840427fe",
                 "shasum": ""
             },
             "require": {
@@ -1869,7 +1869,7 @@
                 "source": "https://github.com/zoopcommerce/commerce-public-data-models-module/tree/master",
                 "issues": "https://github.com/zoopcommerce/commerce-public-data-models-module/issues"
             },
-            "time": "2014-10-25 00:46:04"
+            "time": "2014-10-25 02:09:19"
         },
         {
             "name": "zoopcommerce/common",
@@ -3491,12 +3491,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:zoopcommerce/commerce-common-module.git",
-                "reference": "75e7484c3728f938c6aaf034766c3b5077a1339e"
+                "reference": "151bb118749b4eb7e11d018d330c96daefbe1483"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zoopcommerce/commerce-common-module/zipball/75e7484c3728f938c6aaf034766c3b5077a1339e",
-                "reference": "75e7484c3728f938c6aaf034766c3b5077a1339e",
+                "url": "https://api.github.com/repos/zoopcommerce/commerce-common-module/zipball/151bb118749b4eb7e11d018d330c96daefbe1483",
+                "reference": "151bb118749b4eb7e11d018d330c96daefbe1483",
                 "shasum": ""
             },
             "require": {
@@ -3517,6 +3517,7 @@
                 "willdurand/geocoder": "2.4.*",
                 "zendframework/zendframework": "2.3.1",
                 "zoopcommerce/commerce-public-apis-module": "dev-master",
+                "zoopcommerce/commerce-public-data-models-module": "dev-master",
                 "zoopcommerce/shard-module": "~4.0"
             },
             "require-dev": {
@@ -3555,7 +3556,7 @@
                 "source": "https://github.com/zoopcommerce/commerce-common-module/tree/master",
                 "issues": "https://github.com/zoopcommerce/commerce-common-module/issues"
             },
-            "time": "2014-10-19 05:36:36"
+            "time": "2014-10-25 02:29:03"
         },
         {
             "name": "zoopcommerce/commerce-store-module",
@@ -3691,12 +3692,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:zoopcommerce/commerce-user-module.git",
-                "reference": "665bbc29b9ae7ff927d16f5ca56a2f1d319abd34"
+                "reference": "87394ce15c99a1e8adeee7086ba0d523ea3b9f56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zoopcommerce/commerce-user-module/zipball/665bbc29b9ae7ff927d16f5ca56a2f1d319abd34",
-                "reference": "665bbc29b9ae7ff927d16f5ca56a2f1d319abd34",
+                "url": "https://api.github.com/repos/zoopcommerce/commerce-user-module/zipball/87394ce15c99a1e8adeee7086ba0d523ea3b9f56",
+                "reference": "87394ce15c99a1e8adeee7086ba0d523ea3b9f56",
                 "shasum": ""
             },
             "require": {
@@ -3716,6 +3717,7 @@
                 "sendgrid/sendgrid": "~2.1",
                 "zendframework/zendframework": "2.3.1",
                 "zoopcommerce/commerce-public-apis-module": "dev-master",
+                "zoopcommerce/commerce-public-data-models-module": "dev-master",
                 "zoopcommerce/gateway-module": "~2.0",
                 "zoopcommerce/shard-module": "~4.0"
             },
@@ -3758,7 +3760,7 @@
                 "source": "https://github.com/zoopcommerce/commerce-user-module/tree/master",
                 "issues": "https://github.com/zoopcommerce/commerce-user-module/issues"
             },
-            "time": "2014-10-19 05:45:44"
+            "time": "2014-10-25 03:20:44"
         }
     ],
     "aliases": [
