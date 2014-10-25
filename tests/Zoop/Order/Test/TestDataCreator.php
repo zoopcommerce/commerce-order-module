@@ -13,7 +13,7 @@ class TestDataCreator
     {
         $store = $this->createStore();
         $this->createJson('Store', $store);
-        
+
         $order = $this->createOrder();
         $this->createJson('Order', $order);
     }

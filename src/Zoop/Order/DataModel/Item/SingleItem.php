@@ -2,10 +2,8 @@
 
 namespace Zoop\Order\DataModel\Item;
 
-use Zoop\Order\DataModel\Item\AbstractSku;
+use Zoop\Order\DataModel\Item\SkuInterface;
 use Zoop\Order\DataModel\Item\ItemInterface;
-use Zoop\Order\DataModel\Item\PhysicalSku;
-use Zoop\Order\DataModel\Item\DigitalSku;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
@@ -13,7 +11,7 @@ use Zoop\Shard\Annotation\Annotations as Shard;
 /**
  * @ODM\EmbeddedDocument
  * @Shard\AccessControl({
- *     @Shard\Permission\Basic(roles="*", allow="*")
+ *     @Shard\Permission\Basic(roles="*", allow={"read", "create", "update::*", "delete"})
  * })
  */
 class SingleItem extends AbstractItem implements ItemInterface
@@ -30,7 +28,7 @@ class SingleItem extends AbstractItem implements ItemInterface
     protected $sku;
 
     /**
-     * @return AbstractSku
+     * @return SkuInterface
      */
     public function getSku()
     {
@@ -38,9 +36,9 @@ class SingleItem extends AbstractItem implements ItemInterface
     }
 
     /**
-     * @param AbstractSku $sku
+     * @param SkuInterface $sku
      */
-    public function setSku(AbstractSku $sku)
+    public function setSku(SkuInterface $sku)
     {
         $this->sku = $sku;
     }

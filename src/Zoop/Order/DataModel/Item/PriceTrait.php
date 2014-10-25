@@ -10,63 +10,63 @@ trait PriceTrait
 {
     /**
      * Wholesale price
-     * 
+     *
      * @ODM\Float
      */
     protected $wholesale;
 
     /**
      * List price
-     * 
+     *
      * @ODM\Float
      */
     protected $list;
 
     /**
      * Sale price
-     * 
+     *
      * @ODM\Float
      */
     protected $sale;
 
     /**
      * List - Discount
-     * 
+     *
      * @ODM\Float
      */
     protected $subTotal;
 
     /**
      * Tax included
-     * 
+     *
      * @ODM\Float
      */
     protected $taxIncluded;
 
     /**
      * Shipping cost
-     * 
+     *
      * @ODM\Float
      */
     protected $shipping;
 
     /**
      * Cart / order level discount
-     * 
+     *
      * @ODM\Float
      */
     protected $cartDiscount;
 
     /**
      * Shipping level discount
-     * 
+     *
      * @ODM\Float
      */
     protected $shippingDiscount;
 
     /**
      * Product level discount
-     * 
+     *
      * @ODM\Float
      */
     protected $productDiscount;
@@ -144,7 +144,7 @@ trait PriceTrait
     }
 
     /**
-     * 
+     *
      * @param type $wholesale
      */
     public function setWholesale($wholesale)
@@ -153,7 +153,7 @@ trait PriceTrait
     }
 
     /**
-     * 
+     *
      * @param type $list
      */
     public function setList($list)
@@ -162,7 +162,7 @@ trait PriceTrait
     }
 
     /**
-     * 
+     *
      * @param type $sale
      */
     public function setSale($sale)
@@ -171,7 +171,7 @@ trait PriceTrait
     }
 
     /**
-     * 
+     *
      * @param type $subTotal
      */
     public function setSubTotal($subTotal)
@@ -181,7 +181,7 @@ trait PriceTrait
 
 
     /**
-     * 
+     *
      * @param type $taxIncluded
      */
     public function setTaxIncluded($taxIncluded)
@@ -190,7 +190,7 @@ trait PriceTrait
     }
 
     /**
-     * 
+     *
      * @param type $shipping
      */
     public function setShipping($shipping)
@@ -199,7 +199,7 @@ trait PriceTrait
     }
 
     /**
-     * 
+     *
      * @param type $cartDiscount
      */
     public function setCartDiscount($cartDiscount)
@@ -208,7 +208,7 @@ trait PriceTrait
     }
 
     /**
-     * 
+     *
      * @param type $shippingDiscount
      */
     public function setShippingDiscount($shippingDiscount)
@@ -217,7 +217,7 @@ trait PriceTrait
     }
 
     /**
-     * 
+     *
      * @param type $productDiscount
      */
     public function setProductDiscount($productDiscount)

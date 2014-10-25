@@ -2,7 +2,8 @@
 
 namespace Zoop\Order\DataModel\Item\Option;
 
-use Zoop\Common\DataModel\File;
+use Zoop\Common\File\DataModel\FileInterface;
+use Zoop\Order\DataModel\Item\Option\FileUploadInterface;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
@@ -10,20 +11,20 @@ use Zoop\Shard\Annotation\Annotations as Shard;
 /**
  * @ODM\EmbeddedDocument
  * @Shard\AccessControl({
- *     @Shard\Permission\Basic(roles="*", allow="*")
+ *     @Shard\Permission\Basic(roles="*", allow={"read", "create", "update::*", "delete"})
  * })
  */
-class FileUpload extends AbstractOption
+class FileUpload extends AbstractOption implements FileUploadInterface
 {
     /**
      *
-     * @ODM\ReferenceOne(targetDocument="Zoop\Common\DataModel\File")
+     * @ODM\ReferenceOne(targetDocument="Zoop\Common\File\DataModel\File")
      */
     protected $file;
 
     /**
      *
-     * @return File
+     * @return FileInterface
      */
     public function getFile()
     {
@@ -32,9 +33,9 @@ class FileUpload extends AbstractOption
 
     /**
      *
-     * @param File $file
+     * @param FileInterface $file
      */
-    public function setFile(File $file)
+    public function setFile(FileInterface $file)
     {
         $this->file = $file;
     }

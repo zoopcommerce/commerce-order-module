@@ -3,8 +3,8 @@
 namespace Zoop\Order\DataModel\Item;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Zoop\Order\DataModel\Item\Price;
-use Zoop\Product\DataModel\ImageSet;
+use Zoop\Order\DataModel\Item\PriceSetInterface;
+use Zoop\Product\DataModel\ImageSetInterface;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
@@ -12,21 +12,25 @@ use Zoop\Shard\Annotation\Annotations as Shard;
 /**
  * @ODM\EmbeddedDocument
  * @Shard\AccessControl({
- *     @Shard\Permission\Basic(roles="*", allow="*")
+ *     @Shard\Permission\Basic(roles="*", allow={"read", "create", "update::*"}),
+ *     @Shard\Permission\Basic(
+ *          roles={
+ *              "zoop::admin",
+ *              "partner::admin",
+ *              "company::admin",
+ *              "store::admin"
+ *          },
+ *          allow="delete"
+ *     )
  * })
  */
 abstract class AbstractItem
 {
     /**
-     * @ODM\Int
-     */
-    protected $legacyId;
-    
-    /**
      * @ODM\String
      */
     protected $brand;
-    
+
     /**
      * @ODM\String
      * @Shard\Validator\Required
@@ -39,9 +43,9 @@ abstract class AbstractItem
     protected $imageSets;
 
     /**
-     * @ODM\EmbedOne(targetDocument="Zoop\Order\DataModel\Item\Price")
+     * @ODM\EmbedOne(targetDocument="Zoop\Order\DataModel\Item\PriceSet")
      */
-    protected $price;
+    protected $priceSet;
 
     /**
      * @ODM\String
@@ -57,27 +61,6 @@ abstract class AbstractItem
      * @ODM\Int
      */
     protected $quantity;
-
-    public function __construct()
-    {
-        $this->imageSets = new ArrayCollection();
-    }
-
-    /**
-     * @return int
-     */
-    public function getLegacyId()
-    {
-        return $this->legacyId;
-    }
-
-    /**
-     * @param int $legacyId
-     */
-    public function setLegacyId($legacyId)
-    {
-        $this->legacyId = (int) $legacyId;
-    }
 
     /**
      * @return string
@@ -112,43 +95,51 @@ abstract class AbstractItem
     }
 
     /**
-     * @return ArrayCollection
+     * @return array
      */
     public function getImageSets()
     {
+        if (!isset($this->imageSets)) {
+            $this->imageSets = new ArrayCollection;
+        }
         return $this->imageSets;
     }
 
     /**
-     * @param ArrayCollection $imageSets
+     * @param array $imageSets
      */
-    public function setImageSets(ArrayCollection $imageSets)
+    public function setImageSets($imageSets)
     {
+        if (is_array($imageSets)) {
+            $this->imageSets = new ArrayCollection($imageSets);
+        }
         $this->imageSets = $imageSets;
     }
 
     /**
      * @param ImageSet $imageSet
      */
-    public function addImageSet(ImageSet $imageSet)
+    public function addImageSet(ImageSetInterface $imageSet)
     {
-        $this->imageSets->add($imageSet);
+        if (!$this->getImageSets()->contains($imageSet)) {
+            $this->getImageSets()->add($imageSet);
+        }
     }
 
     /**
      * @return Price
      */
-    public function getPrice()
+    public function getPriceSet()
     {
-        return $this->price;
+        return $this->priceSet;
     }
 
     /**
      * @param Price $price
      */
-    public function setPrice(Price $price)
+    public function setPriceSet(PriceSetInterface $priceSet)
     {
-        $this->price = $price;
+        $this->priceSet = $priceSet;
     }
 
     /**

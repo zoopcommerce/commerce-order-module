@@ -4,10 +4,9 @@ namespace Zoop\Order\Test;
 
 use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Zoop\Shard\Core\Events;
 use Zoop\Shard\Manifest;
 use Zoop\Shard\Serializer\Unserializer;
-use Zoop\Promotion\Test\Assets\TestData;
-use Zoop\Shard\Core\Events;
 
 abstract class AbstractTest extends AbstractHttpControllerTestCase
 {
@@ -57,7 +56,6 @@ abstract class AbstractTest extends AbstractHttpControllerTestCase
     }
 
     /**
-     *
      * @return string
      */
     public static function getDbName()
@@ -66,7 +64,6 @@ abstract class AbstractTest extends AbstractHttpControllerTestCase
     }
 
     /**
-     *
      * @return Manifest
      */
     public static function getManifest()
@@ -75,27 +72,11 @@ abstract class AbstractTest extends AbstractHttpControllerTestCase
     }
 
     /**
-     *
      * @return Unserializer
      */
     public static function getUnserializer()
     {
         return self::$unserializer;
-    }
-
-    /**
-     * @return Store
-     */
-    protected static function getStore()
-    {
-        if (!isset(self::$store)) {
-            $store = TestData::createStore(self::getUnserializer());
-
-            self::getDocumentManager()->persist($store);
-            self::getDocumentManager()->flush($store);
-            self::$store = $store;
-        }
-        return self::$store;
     }
 
     public static function tearDownAfterClass()
@@ -108,7 +89,8 @@ abstract class AbstractTest extends AbstractHttpControllerTestCase
         if (isset(self::$documentManager) && isset(self::$dbName)) {
             $collections = self::$documentManager
                 ->getConnection()
-                ->selectDatabase(self::$dbName)->listCollections();
+                ->selectDatabase(self::$dbName)
+                ->listCollections();
 
             foreach ($collections as $collection) {
                 /* @var $collection \MongoCollection */

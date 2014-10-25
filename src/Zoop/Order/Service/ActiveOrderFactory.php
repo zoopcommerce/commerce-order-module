@@ -18,14 +18,14 @@ class ActiveOrderFactory implements FactoryInterface
         $sessionContainer = $serviceLocator->get('zoop.commerce.common.session.container.order');
 
         /* @var $sessionContainer Container */
-        if(isset($sessionContainer->id)) {
+        if (isset($sessionContainer->id)) {
             $order = $this->loadOrder($sessionContainer->id, $serviceLocator);
         }
-        
-        if(empty($order)) {
+
+        if (empty($order)) {
             $order = new Order;
         }
-        
+
         return $order;
     }
 
