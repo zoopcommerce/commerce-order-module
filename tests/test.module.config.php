@@ -1,27 +1,39 @@
 <?php
 
-$mongoConnectionString = 'mongodb://localhost:27017';
-$mongoZoopDatabase = 'zoop_test';
-$mysqlZoopDatabase = 'zoop_test';
-
 return [
+    'router' => [
+        'prototypes' => [
+            'zoop/commerce/api' => [
+                'type' => 'Hostname',
+                'options' => [
+                    'route' => 'api.zoopcommerce.local'
+                ],
+            ],
+        ],
+    ],
     'doctrine' => [
         'odm' => [
             'connection' => [
                 'commerce' => [
-                    'dbname' => $mongoZoopDatabase,
-                    'connectionString' => $mongoConnectionString,
+                    'dbname' => 'zoop_test',
+                    'server' => 'localhost',
+                    'port' => '27017',
+                    'user' => '',
+                    'password' => '',
                 ],
             ],
             'configuration' => [
                 'commerce' => [
                     'metadata_cache' => 'doctrine.cache.array',
-                    'default_db' => $mongoZoopDatabase,
+                    'default_db' => 'zoop_test',
                     'generate_proxies' => true,
                     'proxy_dir' => __DIR__ . '/../data/proxies',
+                    'proxy_namespace' => 'proxies',
                     'generate_hydrators' => true,
                     'hydrator_dir' => __DIR__ . '/../data/hydrators',
-                ]
+                    'hydrator_namespace' => 'hydrators',
+                    'driver' => 'doctrine.driver.default',
+                ],
             ],
         ],
     ],
@@ -40,19 +52,20 @@ return [
         ],
         'db' => [
             'host' => 'localhost',
-            'database' => $mysqlZoopDatabase,
-            'username' => 'zoop',
-            'password' => 'yourtown1',
+            'database' => 'zoop_development',
+            'username' => 'root',
+            'password' => 'reverse',
             'port' => 3306,
         ],
         'cache' => [
             'handler' => 'mongodb',
             'mongodb' => [
-                'connectionString' => $mongoConnectionString,
-                'options' => [
-                    'database' => $mongoZoopDatabase,
-                    'collection' => 'Cache',
-                ]
+                'host' => 'localhost',
+                'database' => 'zoop_test',
+                'collection' => 'Cache',
+                'username' => '',
+                'password' => '',
+                'port' => 27017,
             ],
         ],
         'sendgrid' => [
@@ -60,18 +73,33 @@ return [
             'password' => ''
         ],
         'session' => [
-            'ttl' => (60 * 60 * 3), //3 hours
             'handler' => 'mongodb',
             'mongodb' => [
-                'connectionString' => $mongoConnectionString,
-                'options' => [
-                    'database' => $mongoZoopDatabase,
-                    'collection' => 'Session',
-                    'saveOptions' => [
-                        'w' => 1
-                    ]
-                ]
+                'host' => 'localhost',
+                'database' => 'zoop_test',
+                'collection' => 'Session',
+                'username' => '',
+                'password' => '',
+                'port' => 27017,
             ]
         ],
+        'shard' => [
+            'manifest' => [
+                'noauth' => [
+                    'models' => [
+                        'Zoop\Common\DataModel' => __DIR__ .
+                            '/../vendor/zoopcommerce/commerce-common-module/src/Zoop/Common/DataModel',
+                        'Zoop\Store\DataModel' => __DIR__ .
+                            '/../vendor/zoopcommerce/commerce-store-module/src/Zoop/Store/DataModel',
+                        'Zoop' => __DIR__ .
+                            '/../vendor/zoopcommerce/commerce-public-data-models-module/src/Zoop',
+                    ]
+                ]
+            ],
+        ]
+    ],
+    'controllers' => [
+        'invokables' => [
+        ]
     ]
 ];

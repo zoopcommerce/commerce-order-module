@@ -2,8 +2,8 @@
 
 namespace Zoop\Order\DataModel\Item;
 
-use Zoop\Order\DataModel\Item\UnitPrice;
-use Zoop\Order\DataModel\Item\TotalPrice;
+use Zoop\Order\DataModel\Item\PriceSetInterface;
+use Zoop\Order\DataModel\Item\PriceInterface;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
@@ -11,10 +11,19 @@ use Zoop\Shard\Annotation\Annotations as Shard;
 /**
  * @ODM\EmbeddedDocument
  * @Shard\AccessControl({
- *     @Shard\Permission\Basic(roles="*", allow="*")
+ *     @Shard\Permission\Basic(roles="*", allow={"read", "create", "update::*"}),
+ *     @Shard\Permission\Basic(
+ *          roles={
+ *              "zoop::admin",
+ *              "partner::admin",
+ *              "company::admin",
+ *              "store::admin"
+ *          },
+ *          allow="delete"
+ *     )
  * })
  */
-class Price
+class PriceSet implements PriceSetInterface
 {
     /**
      *
@@ -29,8 +38,8 @@ class Price
     protected $total;
 
     /**
-     * 
-     * @return UnitPrice
+     *
+     * @return PriceInterface
      */
     public function getUnit()
     {
@@ -38,8 +47,8 @@ class Price
     }
 
     /**
-     * 
-     * @return TotalPrice
+     *
+     * @return PriceInterface
      */
     public function getTotal()
     {
@@ -47,19 +56,19 @@ class Price
     }
 
     /**
-     * 
-     * @param UnitPrice $unit
+     *
+     * @param PriceInterface $unit
      */
-    public function setUnit(UnitPrice $unit)
+    public function setUnit(PriceInterface $unit)
     {
         $this->unit = $unit;
     }
 
     /**
-     * 
-     * @param TotalPrice $total
+     *
+     * @param PriceInterface $total
      */
-    public function setTotal(TotalPrice $total)
+    public function setTotal(PriceInterface $total)
     {
         $this->total = $total;
     }

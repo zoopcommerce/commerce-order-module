@@ -6,12 +6,14 @@ return [
         'DoctrineModule',
         'DoctrineMongoODMModule',
         'Zoop\ShardModule',
+        'Zoop\GatewayModule',
+        'Zoop\GomiModule',
+        'Zoop\Api',
         'Zoop\Common',
-        'Zoop\Payment',
-        'Zoop\Product',
-        'Zoop\Promotion',
+        'Zoop\User',
+        'Zoop\Store',
         'Zoop\Order',
-        'Zoop\Store'
+        'Zoop\Test'
     ],
     'module_listener_options' => [
         'config_glob_paths' => [

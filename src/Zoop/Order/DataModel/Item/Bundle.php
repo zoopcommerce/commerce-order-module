@@ -3,7 +3,6 @@
 namespace Zoop\Order\DataModel\Item;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Zoop\Order\DataModel\Item\AbstractItem;
 use Zoop\Order\DataModel\Item\ItemInterface;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
@@ -12,7 +11,7 @@ use Zoop\Shard\Annotation\Annotations as Shard;
 /**
  * @ODM\EmbeddedDocument
  * @Shard\AccessControl({
- *     @Shard\Permission\Basic(roles="*", allow="*")
+ *     @Shard\Permission\Basic(roles="*", allow={"read", "create", "update::*", "delete"})
  * })
  */
 class Bundle extends AbstractItem implements ItemInterface
@@ -23,32 +22,36 @@ class Bundle extends AbstractItem implements ItemInterface
      */
     protected $items;
 
-    public function __construct()
-    {
-        $this->items = new ArrayCollection();
-    }
-
     /**
-     * @param AbstractItem $item
+     * @param ItemInterface $item
      */
-    public function addItem(AbstractItem $item)
+    public function addItem(ItemInterface $item)
     {
-        $this->items->add($item);
+        if (!$this->getItems()->contains($item)) {
+            $this->getItems()->add($item);
+        }
     }
 
     /**
-     * @return ArrayCollection
+     * @return array
      */
     public function getItems()
     {
+        if (!isset($this->items)) {
+            $this->items = new ArrayCollection();
+        }
         return $this->items;
     }
 
     /**
-     * @param ArrayCollection $items
+     * @param array $items
      */
     public function setItems($items)
     {
-        $this->items = $items;
+        if (is_array($items)) {
+            $this->items = new ArrayCollection($items);
+        } else {
+            $this->items = $items;
+        }
     }
 }

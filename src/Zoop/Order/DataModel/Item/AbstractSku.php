@@ -3,7 +3,7 @@
 namespace Zoop\Order\DataModel\Item;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Zoop\Order\DataModel\Item\Option\AbstractOption;
+use Zoop\Order\DataModel\Item\Option\OptionInterface;
 
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
@@ -12,7 +12,7 @@ use Zoop\Shard\Annotation\Annotations as Shard;
 /**
  * @ODM\EmbeddedDocument
  * @Shard\AccessControl({
- *     @Shard\Permission\Basic(roles="*", allow="*")
+ *     @Shard\Permission\Basic(roles="*", allow={"read", "create", "update::*", "delete"})
  * })
  */
 abstract class AbstractSku
@@ -40,41 +40,47 @@ abstract class AbstractSku
      * )
      */
     protected $options;
-    
+
     /**
-     * @return ArrayCollection
+     * @return array
      */
     public function getOptions()
     {
-        if(!isset($this->options)) {
+        if (!isset($this->options)) {
             $this->options = new ArrayCollection;
         }
         return $this->options;
     }
 
     /**
-     * @param ArrayCollection $options
+     * @param array $options
      */
-    public function setOptions(ArrayCollection $options)
+    public function setOptions($options)
     {
-        $this->options = $options;
+        if (is_array($options)) {
+            $this->options = new ArrayCollection($options);
+        } else {
+            $this->options = $options;
+        }
     }
 
     /**
-     * @param AbstractOption $options
+     * @param OptionInterface $option
      */
-    public function addOption(AbstractOption $option)
+    public function addOption(OptionInterface $option)
     {
-        $this->getOptions()->add($option);
+        if (!$this->getOptions()->contains($option)) {
+            $this->getOptions()->add($option);
+        }
     }
-    
+
     /**
      *
-     * @return ArrayCollection
+     * @return array
      */
     public function getSuppliers()
     {
-        if(!isset($this->suppliers)) {
+        if (!isset($this->suppliers)) {
             $this->suppliers = new ArrayCollection;
         }
         return $this->suppliers;
@@ -82,11 +88,15 @@ abstract class AbstractSku
 
     /**
      *
-     * @param ArrayCollection $suppliers
+     * @param array $suppliers
      */
-    public function setSuppliers(ArrayCollection $suppliers)
+    public function setSuppliers($suppliers)
     {
-        $this->suppliers = $suppliers;
+        if (is_array($suppliers)) {
+            $this->suppliers = new ArrayCollection($suppliers);
+        } else {
+            $this->suppliers = $suppliers;
+        }
     }
 
     /**
@@ -94,24 +104,8 @@ abstract class AbstractSku
      */
     public function addSupplier($supplier)
     {
-        $this->getSuppliers()->add($supplier);
-    }
-
-    /**
-     *
-     * @return int
-     */
-    public function getLegacyId()
-    {
-        return $this->legacyId;
-    }
-
-    /**
-     *
-     * @param int $legacyId
-     */
-    public function setLegacyId($legacyId)
-    {
-        $this->legacyId = (int) $legacyId;
+        if (!$this->getSuppliers()->contains($supplier)) {
+            $this->getSuppliers()->add($supplier);
+        }
     }
 }

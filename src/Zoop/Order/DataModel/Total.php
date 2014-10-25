@@ -2,7 +2,8 @@
 
 namespace Zoop\Order\DataModel;
 
-use Zoop\Common\DataModel\Currency;
+use Zoop\Order\DataModel\TotalInterface;
+use Zoop\Common\DataModel\CurrencyInterface;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
@@ -10,10 +11,19 @@ use Zoop\Shard\Annotation\Annotations as Shard;
 /**
  * @ODM\EmbeddedDocument
  * @Shard\AccessControl({
- *     @Shard\Permission\Basic(roles="*", allow="*")
+ *     @Shard\Permission\Basic(roles="*", allow={"read", "create", "update::*"}),
+ *     @Shard\Permission\Basic(
+ *          roles={
+ *              "zoop::admin",
+ *              "partner::admin",
+ *              "company::admin",
+ *              "store::admin"
+ *          },
+ *          allow="delete"
+ *     )
  * })
  */
-class Total
+class Total implements TotalInterface
 {
     /**
      *
@@ -118,7 +128,7 @@ class Total
     {
         $this->productListPrice = $productListPrice;
     }
-    
+
     /**
      * @return float
      */
@@ -207,7 +217,7 @@ class Total
 
     /**
      *
-     * @return Currency
+     * @return CurrencyInterface
      */
     public function getCurrency()
     {
@@ -216,9 +226,9 @@ class Total
 
     /**
      *
-     * @param Currency $currency
+     * @param CurrencyInterface $currency
      */
-    public function setCurrency(Currency $currency)
+    public function setCurrency(CurrencyInterface $currency)
     {
         $this->currency = $currency;
     }

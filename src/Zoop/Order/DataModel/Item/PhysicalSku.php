@@ -2,7 +2,8 @@
 
 namespace Zoop\Order\DataModel\Item;
 
-use Zoop\Product\DataModel\Dimensions;
+use Zoop\Product\DataModel\DimensionsInterface;
+use Zoop\Order\DataModel\Item\PhysicalSkuInterface;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
@@ -10,10 +11,10 @@ use Zoop\Shard\Annotation\Annotations as Shard;
 /**
  * @ODM\EmbeddedDocument
  * @Shard\AccessControl({
- *     @Shard\Permission\Basic(roles="*", allow="*")
+ *     @Shard\Permission\Basic(roles="*", allow={"read", "create", "update::*", "delete"})
  * })
  */
-class PhysicalSku extends AbstractSku
+class PhysicalSku extends AbstractSku implements PhysicalSkuInterface
 {
     /**
      * @ODM\EmbedOne(targetDocument="Zoop\Product\DataModel\Dimensions")
@@ -21,7 +22,7 @@ class PhysicalSku extends AbstractSku
     protected $dimensions;
 
     /**
-     * @return Dimensions
+     * @return DimensionsInterface
      */
     public function getDimensions()
     {
@@ -29,9 +30,9 @@ class PhysicalSku extends AbstractSku
     }
 
     /**
-     * @param Dimensions $dimensions
+     * @param DimensionsInterface $dimensions
      */
-    public function setDimensions(Dimensions $dimensions)
+    public function setDimensions(DimensionsInterface $dimensions)
     {
         $this->dimensions = $dimensions;
     }

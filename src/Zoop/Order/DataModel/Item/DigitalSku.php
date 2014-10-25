@@ -2,7 +2,8 @@
 
 namespace Zoop\Order\DataModel\Item;
 
-use Zoop\Common\DataModel\File;
+use Zoop\Common\File\DataModel\FileInterface;
+use Zoop\Order\DataModel\Item\DigitalSkuInterface;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
@@ -10,14 +11,13 @@ use Zoop\Shard\Annotation\Annotations as Shard;
 /**
  * @ODM\EmbeddedDocument
  * @Shard\AccessControl({
- *     @Shard\Permission\Basic(roles="*", allow="*")
+ *     @Shard\Permission\Basic(roles="*", allow={"read", "create", "update::*", "delete"})
  * })
  */
-class DigitalSku extends AbstractSku
+class DigitalSku extends AbstractSku implements DigitalSkuInterface
 {
     /**
-     *
-     * @ODM\ReferenceOne(targetDocument="Zoop\Common\DataModel\File")
+     * @ODM\ReferenceOne(targetDocument="Zoop\Common\File\DataModel\File")
      */
     protected $file;
 
@@ -93,7 +93,7 @@ class DigitalSku extends AbstractSku
 
     /**
      *
-     * @return File
+     * @return FileInterface
      */
     public function getFile()
     {
@@ -102,9 +102,9 @@ class DigitalSku extends AbstractSku
 
     /**
      *
-     * @param File $file
+     * @param FileInterface $file
      */
-    public function setFile(File $file)
+    public function setFile(FileInterface $file)
     {
         $this->file = $file;
     }

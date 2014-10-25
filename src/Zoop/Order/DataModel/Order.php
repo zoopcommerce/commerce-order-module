@@ -4,18 +4,19 @@ namespace Zoop\Order\DataModel;
 
 use \DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
-use Zoop\Common\DataModel\Address;
-use Zoop\Order\DataModel\Total;
-use Zoop\Order\DataModel\Commission;
+use Zoop\Order\DataModel\TotalInterface;
+use Zoop\Order\DataModel\CommissionInterface;
 use Zoop\Order\DataModel\OrderInterface;
-use Zoop\Store\DataModel\Store;
-use Zoop\Order\DataModel\History;
-use Zoop\Order\DataModel\Item\AbstractItem;
-use Zoop\Order\DataModel\Item\SingleItem;
-use Zoop\Order\DataModel\Item\Bundle;
-use Zoop\Shard\Stamp\DataModel\CreatedOnTrait;
-use Zoop\Shard\Stamp\DataModel\UpdatedOnTrait;
+use Zoop\Common\DataModel\AddressInterface;
+use Zoop\Order\DataModel\HistoryInterface;
+use Zoop\Order\DataModel\Item\ItemInterface;
 use Zoop\Promotion\DataModel\PromotionInterface;
+use Zoop\Shard\Stamp\DataModel\CreatedOnTrait;
+use Zoop\Shard\Stamp\DataModel\CreatedByTrait;
+use Zoop\Shard\Stamp\DataModel\UpdatedOnTrait;
+use Zoop\Shard\Stamp\DataModel\UpdatedByTrait;
+use Zoop\Store\DataModel\StoreTraitInterface;
+use Zoop\Store\DataModel\StoreTrait;
 use Zoop\Payment\DataModel\TransactionInterface;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
@@ -24,7 +25,16 @@ use Zoop\Shard\Annotation\Annotations as Shard;
 /**
  * @ODM\Document
  * @Shard\AccessControl({
- *     @Shard\Permission\Basic(roles="*", allow="*"),
+ *     @Shard\Permission\Basic(roles="*", allow={"read", "create", "update::*"}),
+ *     @Shard\Permission\Basic(
+ *          roles={
+ *              "zoop::admin",
+ *              "partner::admin",
+ *              "company::admin",
+ *              "store::admin"
+ *          },
+ *          allow="delete"
+ *     ),
  *     @Shard\Permission\Transition(
  *         roles="*",
  *         allow={
@@ -73,11 +83,18 @@ use Zoop\Shard\Annotation\Annotations as Shard;
  *         }
  *     )
  * })
+ * 
+ * @SuppressWarnings(PHPMD.ExcessivePublicCount)
+ * @SuppressWarnings(PHPMD.TooManyFields)
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
-class Order implements OrderInterface
+class Order implements OrderInterface, StoreTraitInterface
 {
     use CreatedOnTrait;
+    use CreatedByTrait;
+    use StoreTrait;
     use UpdatedOnTrait;
+    use UpdatedByTrait;
 
     /**
      * @ODM\Id(strategy="UUID")
@@ -85,45 +102,18 @@ class Order implements OrderInterface
     protected $id;
 
     /**
-     * @ODM\Int
-     * @ODM\Index(unique = true)
-     */
-    protected $legacyId;
-
-    /**
      * @ODM\ReferenceMany(
      *     discriminatorField="type",
      *     discriminatorMap={
-     *         "UnlimitedPromotion"   = "Zoop\Legacy\Promotion\DataModel\UnlimitedPromotion",
-     *         "LimitedPromotion"     = "Zoop\Legacy\Promotion\DataModel\LimitedPromotion"
-     *     }, 
+     *         "UnlimitedPromotion"   = "Zoop\Promotion\DataModel\UnlimitedPromotion",
+     *         "LimitedPromotion"     = "Zoop\Promotion\DataModel\LimitedPromotion"
+     *     },
      *     inversedBy="orders"
      * )
      * @Shard\Serializer\Eager
      * @Shard\Unserializer\Ignore
      */
     protected $promotions;
-
-    /**
-     * @ODM\ReferenceMany(
-     *     discriminatorField="type",
-     *     discriminatorMap={
-     *         "UnlimitedPromotion"   = "Zoop\Legacy\Promotion\DataModel\UnlimitedPromotion",
-     *         "LimitedPromotion"     = "Zoop\Legacy\Promotion\DataModel\LimitedPromotion"
-     *     }, 
-     *     inversedBy="orders"
-     * )
-     * @Shard\Serializer\Eager
-     * @Shard\Unserializer\Ignore
-     */
-    protected $promotionRegistry;
-
-    /**
-     * @ODM\String
-     * @Shard\Zones
-     * @Shard\Validator\Required
-     */
-    protected $store;
 
     /**
      *
@@ -250,20 +240,6 @@ class Order implements OrderInterface
      */
     protected $dateCompleted;
 
-    /**
-     *
-     * @ODM\Boolean
-     */
-    protected $hasProducts = false;
-
-    public function __construct()
-    {
-        $this->items = new ArrayCollection();
-        $this->promotions = new ArrayCollection();
-        $this->history = new ArrayCollection();
-//        $this->transactions = new ArrayCollection();
-    }
-
     public function getId()
     {
         return $this->id;
@@ -271,25 +247,7 @@ class Order implements OrderInterface
 
     /**
      *
-     * @return string
-     */
-    public function getStore()
-    {
-        return $this->store;
-    }
-
-    /**
-     *
-     * @param string $store
-     */
-    public function setStore(Store $store)
-    {
-        $this->store = $store->getId();
-    }
-
-    /**
-     *
-     * @return Total
+     * @return TotalInterface
      */
     public function getTotal()
     {
@@ -298,9 +256,9 @@ class Order implements OrderInterface
 
     /**
      *
-     * @param Total $total
+     * @param TotalInterface $total
      */
-    public function setTotal(Total $total)
+    public function setTotal(TotalInterface $total)
     {
         $this->total = $total;
     }
@@ -325,24 +283,6 @@ class Order implements OrderInterface
 
     /**
      *
-     * @return int
-     */
-    public function getLegacyId()
-    {
-        return $this->legacyId;
-    }
-
-    /**
-     *
-     * @param int $legacyId
-     */
-    public function setLegacyId($legacyId)
-    {
-        $this->legacyId = (int) $legacyId;
-    }
-
-    /**
-     *
      * @return string
      */
     public function getState()
@@ -361,11 +301,11 @@ class Order implements OrderInterface
 
     /**
      *
-     * @return ArrayCollection
+     * @return array
      */
     public function getHistory()
     {
-        if(!isset($this->history)) {
+        if (!isset($this->history)) {
             $this->history = new ArrayCollection();
         }
         return $this->history;
@@ -373,36 +313,47 @@ class Order implements OrderInterface
 
     /**
      *
-     * @param ArrayCollection $history
+     * @param array $history
      */
-    public function setHistory(ArrayCollection $history)
+    public function setHistory($history)
     {
-        $this->history = $history;
+        if (is_array($history)) {
+            $this->history = new ArrayCollection($history);
+        } else {
+            $this->history = $history;
+        }
     }
 
     /**
      *
-     * @param Histroy $history
+     * @param HistoryInterface $history
      */
-    public function addHistory(History $history)
+    public function addHistory(HistoryInterface $history)
     {
         $this->getHistory()->add($history);
     }
 
     /**
-     * @return ArrayCollection
+     * @return array
      */
     public function getTransactions()
     {
+        if (!isset($this->transactions)) {
+            $this->transactions = new ArrayCollection();
+        }
         return $this->transactions;
     }
 
     /**
-     * @param ArrayCollection $transactions
+     * @param array $transactions
      */
     public function setTransactions($transactions)
     {
-        $this->transactions = $transactions;
+        if (is_array($transactions)) {
+            $this->transactions = new ArrayCollection($transactions);
+        } else {
+            $this->transactions = $transactions;
+        }
     }
 
     /**
@@ -414,7 +365,7 @@ class Order implements OrderInterface
     }
 
     /**
-     * @return Commission
+     * @return CommissionInterface
      */
     public function getCommission()
     {
@@ -422,9 +373,9 @@ class Order implements OrderInterface
     }
 
     /**
-     * @param Commission $commission
+     * @param CommissionInterface $commission
      */
-    public function setCommission(Commission $commission)
+    public function setCommission(CommissionInterface $commission)
     {
         $this->commission = $commission;
     }
@@ -512,7 +463,7 @@ class Order implements OrderInterface
 
     /**
      *
-     * @return Address
+     * @return AddressInterface
      */
     public function getAddress()
     {
@@ -521,9 +472,9 @@ class Order implements OrderInterface
 
     /**
      *
-     * @param Address $address
+     * @param AddressInterface $address
      */
-    public function setAddress(Address $address)
+    public function setAddress(AddressInterface $address)
     {
         $this->address = $address;
     }
@@ -566,18 +517,6 @@ class Order implements OrderInterface
 
     /**
      *
-     * @return ArrayCollection
-     */
-    public function getPromotions()
-    {
-        if(!isset($this->promotions)) {
-            $this->promotions = new ArrayCollection;
-        }
-        return $this->promotions;
-    }
-
-    /**
-     *
      * @return string
      */
     public function getPaymentMethod()
@@ -596,11 +535,27 @@ class Order implements OrderInterface
 
     /**
      *
-     * @param ArrayCollection $promotions
+     * @return array
      */
-    public function setPromotions(ArrayCollection $promotions)
+    public function getPromotions()
     {
-        $this->promotions = $promotions;
+        if (!isset($this->promotions)) {
+            $this->promotions = new ArrayCollection;
+        }
+        return $this->promotions;
+    }
+
+    /**
+     *
+     * @param array|ArrayCollection $promotions
+     */
+    public function setPromotions($promotions)
+    {
+        if (is_array($promotions)) {
+            $this->promotions = new ArrayCollection($promotions);
+        } else {
+            $this->promotions = $promotions;
+        }
     }
 
     /**
@@ -614,6 +569,9 @@ class Order implements OrderInterface
         }
     }
 
+    /**
+     *
+     */
     public function clearPromotions()
     {
         $this->promotions = new ArrayCollection;
@@ -643,16 +601,7 @@ class Order implements OrderInterface
      */
     public function hasProducts()
     {
-        return (($this->getTotal()->getProductListPrice() > 0) || $this->hasProducts);
-    }
-
-    /**
-     *
-     * @param boolean $hasProducts
-     */
-    public function setHasProducts($hasProducts)
-    {
-        $this->hasProducts = (boolean) $hasProducts;
+        return count($this->getItems()) > 0;
     }
 
     /**
@@ -692,34 +641,34 @@ class Order implements OrderInterface
     }
 
     /**
-     * 
-     * @return ArrayCollection
+     *
+     * @return array
      */
     public function getItems()
     {
-        if(!isset($this->items)) {
+        if (!isset($this->items)) {
             $this->items = new ArrayCollection();
         }
         return $this->items;
     }
 
     /**
-     * 
+     *
      * @param array|ArrayCollection $items
      */
     public function setItems($items)
     {
-        if (!$items instanceof ArrayCollection) {
+        if (is_array($items)) {
             $items = new ArrayCollection($items);
         }
         $this->items = $items;
     }
 
     /**
-     * 
-     * @param AbstractItem $item
+     *
+     * @param ItemInterface $item
      */
-    public function addItem(AbstractItem $item)
+    public function addItem(ItemInterface $item)
     {
         if (!$this->getItems()->contains($item)) {
             $this->getItems()->add($item);

@@ -2,15 +2,15 @@
 
 namespace Zoop\Order\Test\Controller;
 
+use Zend\Session\Container;
 use Zoop\Order\Test\AbstractTest;
 use Zoop\Order\DataModel\Order;
-use Zend\Session\Container;
+use Zoop\Order\DataModel\Item\ItemInterface;
+use Zoop\Product\DataModel\DimensionsInterface;
+use Zoop\Order\DataModel\Item\PhysicalSkuInterface;
 use Zoop\Order\Test\Assets\TestData;
-use Zoop\Order\DataModel\Item\SingleItem;
-use Zoop\Product\DataModel\Dimensions;
-use Zoop\Order\DataModel\Item\PhysicalSku;
 
-class OrderTest extends AbstractTest
+class ActiveOrderTest extends AbstractTest
 {
     protected static $store;
 
@@ -32,13 +32,13 @@ class OrderTest extends AbstractTest
     public function testActiveOrderManager()
     {
         $order = TestData::createOrder(self::getUnserializer());
-        
+
         $this->getDocumentManager()->persist($order);
         $this->getDocumentManager()->flush($order);
-        
+
         $sessionContainer = $this->getApplicationServiceLocator()
-            ->get('zoop.commerce.common.session.container.order');
-        
+                ->get('zoop.commerce.common.session.container.order');
+
         /* @var $sessionContainer Container */
         $sessionContainer->id = $order->getId();
 
@@ -58,49 +58,47 @@ class OrderTest extends AbstractTest
         $this->assertEquals(2100, $order->getTotal()->getProductSubTotalPrice());
         $this->assertEquals(190.09, $order->getTotal()->getTaxIncluded());
         $this->assertEquals(2120, $order->getTotal()->getOrderPrice());
-        
+
         $items = $order->getItems();
         $this->assertCount(2, $items);
-        
+
         //item 1
         $item = $items[0];
-        
-        $this->assertTrue($item instanceof SingleItem);
+
+        $this->assertTrue($item instanceof ItemInterface);
         $this->assertEquals('11-inch MacBook Air', $item->getName());
         $this->assertEquals('Apple', $item->getBrand());
-        $this->assertEquals(1099, $item->getPrice()->getTotal()->getList());
-        $this->assertEquals(1000, $item->getPrice()->getTotal()->getSubTotal());
+        $this->assertEquals(1099, $item->getPriceSet()->getTotal()->getList());
+        $this->assertEquals(1000, $item->getPriceSet()->getTotal()->getSubTotal());
         $this->assertEquals(1, $item->getQuantity());
-        
+
         $sku = $item->getSku();
-        $this->assertTrue($sku instanceof PhysicalSku);
-        $this->assertEquals(2, $sku->getLegacyId());
+        $this->assertTrue($sku instanceof PhysicalSkuInterface);
         $this->assertCount(1, $sku->getOptions());
-        
+
         $dimensions = $sku->getDimensions();
-        $this->assertTrue($dimensions instanceof Dimensions);
+        $this->assertTrue($dimensions instanceof DimensionsInterface);
         $this->assertEquals(5, $dimensions->getWeight());
         $this->assertEquals(25, $dimensions->getWidth());
         $this->assertEquals(25, $dimensions->getHeight());
         $this->assertEquals(10, $dimensions->getDepth());
-        
+
         //item 2
         $item = $items[1];
-        
-        $this->assertTrue($item instanceof SingleItem);
+
+        $this->assertTrue($item instanceof ItemInterface);
         $this->assertEquals('iPad Air', $item->getName());
         $this->assertEquals('Apple', $item->getBrand());
-        $this->assertEquals(1196, $item->getPrice()->getTotal()->getList());
-        $this->assertEquals(1100, $item->getPrice()->getTotal()->getSubTotal());
+        $this->assertEquals(1196, $item->getPriceSet()->getTotal()->getList());
+        $this->assertEquals(1100, $item->getPriceSet()->getTotal()->getSubTotal());
         $this->assertEquals(2, $item->getQuantity());
-        
+
         $sku = $item->getSku();
-        $this->assertTrue($sku instanceof PhysicalSku);
-        $this->assertEquals(3, $sku->getLegacyId());
+        $this->assertTrue($sku instanceof PhysicalSkuInterface);
         $this->assertCount(3, $sku->getOptions());
-        
+
         $dimensions = $sku->getDimensions();
-        $this->assertTrue($dimensions instanceof Dimensions);
+        $this->assertTrue($dimensions instanceof DimensionsInterface);
         $this->assertEquals(2, $dimensions->getWeight());
         $this->assertEquals(10, $dimensions->getWidth());
         $this->assertEquals(10, $dimensions->getHeight());

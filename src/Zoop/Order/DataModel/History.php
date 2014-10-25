@@ -2,6 +2,7 @@
 
 namespace Zoop\Order\DataModel;
 
+use Zoop\Order\DataModel\HistoryInterface;
 use Zoop\Shard\Stamp\DataModel\CreatedOnTrait;
 use Zoop\Shard\Stamp\DataModel\CreatedByTrait;
 //Annotation imports
@@ -11,10 +12,19 @@ use Zoop\Shard\Annotation\Annotations as Shard;
 /**
  * @ODM\EmbeddedDocument
  * @Shard\AccessControl({
- *     @Shard\Permission\Basic(roles="*", allow="*")
+ *     @Shard\Permission\Basic(roles="*", allow={"read", "create", "update::*"}),
+ *     @Shard\Permission\Basic(
+ *          roles={
+ *              "zoop::admin",
+ *              "partner::admin",
+ *              "company::admin",
+ *              "store::admin"
+ *          },
+ *          allow="delete"
+ *     )
  * })
  */
-class History
+class History implements HistoryInterface
 {
     use CreatedOnTrait;
     use CreatedByTrait;

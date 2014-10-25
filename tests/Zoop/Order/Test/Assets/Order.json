@@ -1,5 +1,4 @@
 {
-    "legacyId": 1,
     "store": "apple",
     "email": "steve@apple.com",
     "firstName": "Steve",
@@ -33,11 +32,10 @@
     "items": [
         {
             "type": "SingleItem",
-            "legacyId": 1,
             "brand": "Apple",
             "name": "11-inch MacBook Air",
             "imageSets": [],
-            "price": {
+            "priceSet": {
                 "unit": {
                     "wholesale": 500,
                     "list": 1099,
@@ -63,7 +61,6 @@
             },
             "sku": {
                 "type": "PhysicalSku",
-                "legacyId": 2,
                 "suppliers": [],
                 "options": [{
                         "type": "Dropdown",
@@ -82,11 +79,10 @@
         },
         {
             "type": "SingleItem",
-            "legacyId": 1,
             "brand": "Apple",
             "name": "iPad Air",
             "imageSets": [],
-            "price": {
+            "priceSet": {
                 "unit": {
                     "wholesale": 400,
                     "list": 598,
@@ -112,7 +108,6 @@
             },
             "sku": {
                 "type": "PhysicalSku",
-                "legacyId": 3,
                 "suppliers": [],
                 "options": [
                     {
@@ -145,9 +140,11 @@
     "shippingMethod": null,
     "paymentMethod": null,
     "state": "in-progress",
-    "history": [{
+    "history": [
+        {
             "state": "in-progress"
-        }],
+        }
+    ],
     "commission": {
         "amount": 0,
         "charged": 0
@@ -156,6 +153,5 @@
     "invoiceSent": false,
     "isWaitingForPayment": false,
     "isComplete": false,
-    "dateCompleted": null,
-    "hasProducts": false
+    "dateCompleted": null
 }

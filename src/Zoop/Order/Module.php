@@ -7,13 +7,11 @@
 namespace Zoop\Order;
 
 /**
- *
  * @author  Josh Stuart <josh.stuart@zoopcommerce.com>
  */
 class Module
 {
     /**
-     *
      * @return array
      */
     public function getConfig()
