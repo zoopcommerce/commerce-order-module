@@ -3,13 +3,21 @@
     "email": "steve@apple.com",
     "firstName": "Steve",
     "lastName": "Jobs",
-    "address": {
+    "customerAddress": {
         "line1": "1 Infinite Loop",
         "line2": null,
         "city": "Cupertino",
         "state": "CA",
         "postcode": "95014",
         "country": "US"
+    },
+    "shippingAddress": {
+        "line1": "1 Sesame Street",
+        "line2": null,
+        "city": "Cartoon",
+        "state": "VIC",
+        "postcode": "30000",
+        "country": "AU"
     },
     "phone": null,
     "promotions": [],
