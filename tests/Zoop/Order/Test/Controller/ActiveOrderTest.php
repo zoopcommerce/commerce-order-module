@@ -49,8 +49,10 @@ class ActiveOrderTest extends AbstractTest
         $this->assertTrue($order instanceof Order);
         $this->assertNotEmpty($order->getId());
         $this->assertEquals('steve@apple.com', $order->getEmail());
-        $this->assertEquals('Cupertino', $order->getAddress()->getCity());
-        $this->assertEquals('US', $order->getAddress()->getCountry());
+        $this->assertEquals('Cupertino', $order->getCustomerAddress()->getCity());
+        $this->assertEquals('US', $order->getCustomerAddress()->getCountry());
+        $this->assertEquals('Cartoon', $order->getShippingAddress()->getCity());
+        $this->assertEquals('AU', $order->getShippingAddress()->getCountry());
         $this->assertEquals(3, $order->getTotal()->getProductQuantity());
         $this->assertEquals(20, $order->getTotal()->getShippingPrice());
         $this->assertEquals(2295, $order->getTotal()->getProductListPrice());
