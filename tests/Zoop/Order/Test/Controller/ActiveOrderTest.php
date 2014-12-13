@@ -9,10 +9,26 @@ use Zoop\Order\DataModel\Item\ItemInterface;
 use Zoop\Product\DataModel\DimensionsInterface;
 use Zoop\Order\DataModel\Item\PhysicalSkuInterface;
 use Zoop\Order\Test\Assets\TestData;
+use Zoop\Test\Helper\DataHelper;
 
 class ActiveOrderTest extends AbstractTest
 {
-    protected static $store;
+    private static $testDataCreated = false;
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        if (self::$testDataCreated === false) {
+            DataHelper::createZoopUser(self::getNoAuthDocumentManager(), self::getDbName());
+            DataHelper::createStores(self::getNoAuthDocumentManager(), self::getDbName());
+
+            //mock active store
+            $this->getApplicationServiceLocator()->setAllowOverride(true);
+            $this->getApplicationServiceLocator()->setService('zoop.commerce.store.active', $this->getStore());
+            self::$testDataCreated = true;
+        }
+    }
 
     /**
      * @runInSeparateProcess
@@ -37,7 +53,7 @@ class ActiveOrderTest extends AbstractTest
         $this->getDocumentManager()->flush($order);
 
         $sessionContainer = $this->getApplicationServiceLocator()
-                ->get('zoop.commerce.common.session.container.order');
+            ->get('zoop.commerce.common.session.container.order');
 
         /* @var $sessionContainer Container */
         $sessionContainer->id = $order->getId();
@@ -48,6 +64,7 @@ class ActiveOrderTest extends AbstractTest
 
         $this->assertTrue($order instanceof Order);
         $this->assertNotEmpty($order->getId());
+        $this->assertEquals('apple', $order->getStore());
         $this->assertEquals('steve@apple.com', $order->getEmail());
         $this->assertEquals('Cupertino', $order->getCustomerAddress()->getCity());
         $this->assertEquals('US', $order->getCustomerAddress()->getCountry());
